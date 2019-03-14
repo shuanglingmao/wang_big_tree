@@ -1,8 +1,7 @@
-/*.idea/*
-/.idea/
-/vcs.xml
-/.iml
-/msl/target/*
-/*.class
-/*.iml
-msl/target/
+.DS_store
+.idea
+target/
+*.iml
+/.classpath
+/.project
+/.settings/
