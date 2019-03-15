@@ -68,11 +68,15 @@ public class TestAcpect {
 
     /**
      * 加注解的切入点最好写
-     * @param joinPoint
+     * @param jp
      */
     @Around(value = "@annotation(com.msl.annotation.Msl)")
-    public void annotation(JoinPoint joinPoint) {
-
+    public Object annotation(ProceedingJoinPoint jp) throws Throwable {
+        final Object[] args = jp.getArgs();
+        System.out.println("带Msl注解的参数是"+Arrays.toString(args));
+        final Object proceed = jp.proceed();
+        System.out.println("带Msl注解返回结果是"+JSONObject.toJSONString(proceed));
         System.out.println("注解切点");
+        return proceed;
     }
 }
