@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Description: ${todo}
+ * Description: demo
  *
  * @author shuangling.mao
  * @date 2019/3/15 9:47
@@ -24,5 +24,22 @@ public class TestController {
     public String sayHello(String name) {
         final Double pay = testService.pay(5D);
         return name+"~结果是"+pay;
+    }
+
+
+    /**
+     * 用环绕增强返回一句  “叫呆姐干啥”
+     * @return
+     */
+    @RequestMapping("/wdd")
+    @ResponseBody
+    public String wdd(String name) {
+        return name;
+    }
+
+    public static void main(String[] args) {
+        Integer a = null;
+        Integer b = 3;
+        System.out.println(b.equals(a));
     }
 }

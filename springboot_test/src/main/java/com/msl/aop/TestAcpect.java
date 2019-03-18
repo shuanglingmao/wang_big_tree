@@ -26,7 +26,7 @@ import java.util.Arrays;
 @Order(1)
 public class TestAcpect {
     /**
-     * 定义切入点，切入点为com.example.aop下的所有函数
+     * 定义切入点，切入点为com.msl.controller下的所有函数
      */
     @Pointcut("execution(public * com.msl.controller..*.*(..))")
     public void controller(){}
@@ -42,11 +42,13 @@ public class TestAcpect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // 记录下请求内容
+        System.out.println("前置通知~~~~~~~~~~~~~~~");
         System.out.println("URL : " + request.getRequestURL().toString());
         System.out.println("HTTP_METHOD : " + request.getMethod());
         System.out.println("IP : " + request.getRemoteAddr());
         System.out.println("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         System.out.println("参数 : " + Arrays.toString(joinPoint.getArgs()));
+        System.out.println("------------------------------------------------------");
     }
 
     /**
@@ -54,10 +56,11 @@ public class TestAcpect {
      */
     @Around("controller()")
     public Object arround(ProceedingJoinPoint pjp) {
-        System.out.println("方法环绕start.....");
+        System.out.println("表达式环绕通知~~~~~~~~~~~~~~~");
         try {
             Object o =  pjp.proceed();
             System.out.println("方法环绕proceed，结果是 :" + o);
+            System.out.println("------------------------------------------------------");
             return o;
         } catch (Throwable e) {
             e.printStackTrace();
@@ -67,16 +70,18 @@ public class TestAcpect {
 
 
     /**
-     * 加注解的切入点最好写
+     * 加注解的切入点最好写   切入带Msl注解的所有方法
      * @param jp
      */
     @Around(value = "@annotation(com.msl.annotation.Msl)")
     public Object annotation(ProceedingJoinPoint jp) throws Throwable {
         final Object[] args = jp.getArgs();
+        System.out.println("注解环绕~~~~~~~~~~~~~~~");
         System.out.println("带Msl注解的参数是"+Arrays.toString(args));
         final Object proceed = jp.proceed();
         System.out.println("带Msl注解返回结果是"+JSONObject.toJSONString(proceed));
         System.out.println("注解切点");
+        System.out.println("------------------------------------------------------");
         return proceed;
     }
 }

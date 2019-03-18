@@ -64,6 +64,13 @@
       <!--<artifactId>mysql-connector-java</artifactId>-->
       <!--<version>5.1.6</version>-->
     <!--</dependency>-->
+    <!-- 整合redis -->
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.8.2</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -75,6 +82,14 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
       <version>1.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
 
