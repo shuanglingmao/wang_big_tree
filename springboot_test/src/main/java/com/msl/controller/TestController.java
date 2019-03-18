@@ -42,4 +42,10 @@ public class TestController {
         Integer b = 3;
         System.out.println(b.equals(a));
     }
+
+    @RequestMapping("/showAll1" )
+    public String showAll(String name) {
+        System.out.println(name);
+        return "showAll";
+    }
 }

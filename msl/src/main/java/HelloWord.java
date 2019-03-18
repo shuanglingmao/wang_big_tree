@@ -1,3 +1,9 @@
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+
 /**
  * Description: ${todo}
  *
@@ -6,6 +12,7 @@
  */
 public class HelloWord {
     public static void main(String[] args) {
+        BeanFactory factory = new XmlBeanFactory(new ClassPathResource("spring-mybatis.xml"));
         System.out.println("HelloWord!");
     }
 }
