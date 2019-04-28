@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Description: demo
  *
@@ -24,6 +26,12 @@ public class TestController {
     public String sayHello(String name) {
         final Double pay = testService.pay(5D);
         return name+"~结果是"+pay;
+    }
+
+    @PostConstruct
+    public void test() {
+        System.out.println(111);
+        testService.pay(1D);
     }
 
 

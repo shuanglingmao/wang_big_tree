@@ -1,4 +1,8 @@
 package com.msl.util;
+import com.msl.service.TestService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,7 +12,8 @@ import java.util.Date;
  * Modified by lixin 2016/8/16
  */
 public class DateUtil {
-
+	@Autowired
+	private TestService testService;
     public static final String LONG_PARRERN = "yyyy-MM-dd HH:mm:ss";
     public static final String MIDDLE_PARRERN = "yyyy-MM-dd HH:mm";
     public static final String SHORT_PARRERN = "yyyy-MM-dd";
