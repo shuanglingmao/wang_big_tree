@@ -1,8 +1,5 @@
 import com.google.common.collect.Lists;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
 import util.FilterUtils;
 
 import java.util.*;
@@ -14,11 +11,6 @@ import java.util.*;
  * @date 2018/6/14 17:52
  */
 public class HelloWord {
-    public static void main(String[] args) {
-        BeanFactory factory = new XmlBeanFactory(new ClassPathResource("spring-mybatis.xml"));
-        System.out.println("HelloWord!");
-    }
-
     @Test
     public void test1() {
         List<Integer> list = Lists.newArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -43,7 +35,6 @@ public class HelloWord {
         }};
 
         System.out.println("set过滤前-->"+set.toString());
-
         //把谢广坤踢出去
         FilterUtils.filter(set, (name) -> name.equals("谢广坤"));
         System.out.println("set过滤后-->"+set.toString());
