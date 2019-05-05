@@ -5,7 +5,7 @@ import util.FilterUtils;
 import java.util.*;
 
 /**
- * Description: ${todo}
+ * Description: hello word
  *
  * @author shuangling.mao
  * @date 2018/6/14 17:52
@@ -52,7 +52,7 @@ public class HelloWord {
         System.out.println("map过滤前-->"+map.toString());
         FilterUtils.filter(map, new FilterUtils.Filter<Integer>() {
             @Override
-            public boolean execute(Integer integer) {
+            public boolean filter(Integer integer) {
                 return integer % 2 == 0 ;
             }
         });

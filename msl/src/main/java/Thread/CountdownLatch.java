@@ -17,7 +17,7 @@ public class CountdownLatch {
     private static CountDownLatch cdl = new CountDownLatch(USR_NUM);
 
     /**优惠券*/
-    private int discount = 20;
+    private volatile int discount = 20;
 
     @Test
     public void testInvoke ()  throws Exception{
