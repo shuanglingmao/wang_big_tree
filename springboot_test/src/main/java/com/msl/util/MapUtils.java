@@ -24,7 +24,7 @@ public class MapUtils {
         if (list == null || list.isEmpty()) {
             return Collections.emptyMap();
         }
-        Map<K,V> map = new HashMap<>(list.size());
+        Map<K,V> map = new HashMap<K,V>(list.size());
         for (V v : list) {
             map.put(key.getKey(v), v);
         }

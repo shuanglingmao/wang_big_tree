@@ -1,6 +1,8 @@
 package Thread;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,19 @@ public class Cdl {
         System.out.println("起名前:"+ JSONObject.toJSONString(cats));
 
 //        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        ExecutorService executorService = Executors.newFixedThreadPool(20);
+//        ExecutorService executorService = Executors.newFixedThreadPool(20);
 
 //        ThreadPoolExecutor executor = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
 //                Runtime.getRuntime().availableProcessors(),1, TimeUnit.SECONDS,new LinkedBlockingDeque<>());
-
+//        ThreadPoolExecutor executorService = new ThreadPoolExecutor(10, 20, 200L, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>(), new ThreadFactory() {
+//            @Override
+//            public Thread newThread(@NotNull Runnable r) {
+//                return new Thread(r, "线程" + Thread.currentThread().getName());
+//            }
+//        });
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("thread-call-runner-%d").build();
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(10, 20, 200L,
+                TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>(),namedThreadFactory);
 
         final CountDownLatch cdl = new CountDownLatch(cats.size());
         System.out.println("需要起名字的小孩子数量："+cats.size());
@@ -36,6 +46,7 @@ public class Cdl {
                 executorService.execute(() -> {
                     try {
                         this.setName(cat);
+                        System.out.println(Thread.currentThread().getName());
                     } finally {
                         cdl.countDown();
                     }
