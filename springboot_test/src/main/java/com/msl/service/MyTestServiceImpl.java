@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @date 2019/3/15 10:07
  */
 @Service
-public class TestServiceImpl implements TestService {
+public class MyTestServiceImpl implements MyTestService {
     @Override
     @Msl
     public Double pay(Double mount) {

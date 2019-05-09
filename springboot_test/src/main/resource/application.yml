@@ -6,3 +6,10 @@ sping:
     view:
       prefix: /
       suffix: .jsp
+spring:
+  datasource:
+    url: jdbc:mysql://10.99.39.145:3306/springboot
+    username: root
+    password: root
+mybatis:
+  mapper-locations: classpath*:mappering/LockDao.xml

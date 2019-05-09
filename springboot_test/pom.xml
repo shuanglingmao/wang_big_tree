@@ -69,17 +69,17 @@
 
 
     <!-- spring-boot整合mybatis -->
-    <!--<dependency>-->
-      <!--<groupId>org.mybatis.spring.boot</groupId>-->
-      <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
-      <!--<version>1.1.1</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>1.1.1</version>
+    </dependency>
     <!-- mysql驱动 -->
-    <!--<dependency>-->
-      <!--<groupId>mysql</groupId>-->
-      <!--<artifactId>mysql-connector-java</artifactId>-->
-      <!--<version>5.1.6</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.15</version>
+    </dependency>
     <!-- 整合redis -->
     <dependency>
       <groupId>redis.clients</groupId>
@@ -116,8 +116,9 @@
       <artifactId>junit</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

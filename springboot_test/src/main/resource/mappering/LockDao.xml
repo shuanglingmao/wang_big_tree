@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msl.mapper.LockDao">
+
+    <update id="modify" parameterType="String">
+        UPDATE T_STUDENT_PARENT
+        SET IS_GUASHI = 10
+        WHERE
+	    CARD_CODE=#{id}
+    </update>
+
+
+    <select id="getCount" parameterType="String" resultType="int">
+        SELECT IS_GUASHI FROM T_STUDENT_PARENT WHERE CARD_CODE=#{id}
+    </select>
+
+    <update id="subCount" parameterType="String" >
+        UPDATE T_STUDENT_PARENT T_STUDENT_PARENT SET IS_GUASHI = IS_GUASHI -1  WHERE CARD_CODE=#{id}
+    </update>
+
+</mapper>
