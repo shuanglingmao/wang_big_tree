@@ -17,9 +17,9 @@ public class SerializerTest {
     @Before
     public void init() {
         user = new User();
-        user.setAge(1);
-        user.setName("二狗");
-        user.setPhoneNum("17600207112");
+//        user.setAge(1);
+////        user.setName("二狗");
+//        user.setPhoneNum("17600207112");
     }
     @Test
     public void jdkSerialize() {
