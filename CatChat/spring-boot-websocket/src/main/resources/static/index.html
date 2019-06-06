@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="jquery-3.2.1.min.js" ></script>
 </head>
+
 <body class="container" style="width: 60%">
-<div class="form-group" ></br>
+<!--<div class="form-group" ></br>-->
+    <!--<h5>聊天室</h5>-->
+    <!--&lt;!&ndash;<textarea id="message_content"  class="form-control"  readonly="readonly" cols="50" rows="10"></textarea>&ndash;&gt;-->
+<!--</div>-->
+<div class='testDiv' id="message_content">
     <h5>聊天室</h5>
-    <textarea id="message_content"  class="form-control"  readonly="readonly" cols="50" rows="10"></textarea>
 </div>
 <div class="form-group" >
     <label for="in_user_name">用户姓名 &nbsp;</label>
@@ -21,6 +25,7 @@
     <label for="in_room_msg" >群发消息 &nbsp;</label>
     <input id="in_room_msg" value="" class="form-control" /></br>
     <button id="user_send_all" class="btn btn-info" >发送消息</button>
+    <button id="clear_msg" class="btn btn-info" >清空消息</button>
 </div>
 </body>
 
@@ -33,9 +38,15 @@
         var urlPrefix ='ws://10.99.39.78:8080/chat-room/';
         var ws = null;
         $('#user_join').click(function(){
+            //设置用户姓名后输入框不可用
+            $("#in_user_name").attr("disabled","disabled");
+            //加入聊天室按钮不可用
+            $('#user_join').attr("disabled","disabled");
             var username = $('#in_user_name').val();
             if(username == "" || username == undefined || username == null || (username.length>0 && username.trim().length == 0)){
                 alert("请正儿八经输入用户名!,不要给我搞事情！！");
+                $('#user_join').removeAttr("disabled");
+                $("#in_user_name").removeAttr("disabled");
                 return;
             }
             var url = urlPrefix + username;
@@ -45,7 +56,8 @@
             };
             ws.onmessage = function(event){
                 //服务端发送的消息
-                $('#message_content').append(event.data+'\n');
+                $('#message_content').append(event.data+'<br>');
+
             };
             ws.onclose = function(){
                 if(vip.indexOf(username) > -1) {
@@ -56,10 +68,6 @@
 
                 console.log("关闭 websocket 连接...");
             }
-            //设置用户姓名后输入框不可用
-            $("#in_user_name").attr("disabled","disabled");
-            //加入聊天室按钮不可用
-            $('#user_join').attr("disabled","disabled");
         });
         //客户端发送消息到服务器
         $('#user_send_all').click(function(){
@@ -85,7 +93,28 @@
                 ws.close();
             }
         });
+
+        //清空消息
+        $('#clear_msg').click(function(){
+//            $('#message_content').val("")
+            alert("不知道为啥已清空消息，就无法继续正常发送消息，所以您还是别清空了！");
+        });
     })
 </script>
 
+
+
+
+<style type="text/css">
+    .testDiv{
+        bottom: 36px;
+        height: calc(100vh - 280px);
+        resize: none;
+        overFlow-x:scroll;
+        overFlow-y:scroll;
+    }
+    .keyword{
+        color:red;
+    }
+</style>
 </html>

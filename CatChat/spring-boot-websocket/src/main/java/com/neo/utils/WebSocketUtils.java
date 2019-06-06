@@ -37,10 +37,6 @@ public final class WebSocketUtils {
 
     public static void sendMessageAll(String message) {
         ONLINE_USER_SESSIONS.forEach((sessionId, session) -> sendMessage(session, message));
-        final Set<Map.Entry<String, Session>> entries = ONLINE_USER_SESSIONS.entrySet();
-        for (Map.Entry<String, Session> entry : entries) {
-            sendMessage(entry.getValue(),message);
-        }
     }
 
 }

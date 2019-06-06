@@ -40,7 +40,7 @@ public class ChatRoomServerEndpoint {
         } else {
             username = "穷逼屌丝会员："+username;
         }
-        sendMessageAll("[" + username + "] : " + message);
+        sendMessageAll("<span style='color:red'>[" + username + "] : </span>" + message);
         logger.info("发送消息："+message);
     }
 
