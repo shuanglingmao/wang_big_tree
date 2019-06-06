@@ -26,16 +26,16 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        var vip=new Array()
+        vip[0]="毛双领"
+        vip[1]="顶天立地智慧大将军"
+        vip[2]="王大锤"
         var urlPrefix ='ws://10.99.39.78:8080/chat-room/';
         var ws = null;
         $('#user_join').click(function(){
-            //设置用户姓名后输入框不可用
-            $("#in_user_name").attr("disabled","disabled");
-            //加入聊天室按钮不可用
-            $('#user_join').attr("disabled","disabled");
             var username = $('#in_user_name').val();
-            if(username==''){
-                alert("请输入用户名！");
+            if(username == "" || username == undefined || username == null || (username.length>0 && username.trim().length == 0)){
+                alert("请正儿八经输入用户名!,不要给我搞事情！！");
                 return;
             }
             var url = urlPrefix + username;
@@ -46,16 +46,26 @@
             ws.onmessage = function(event){
                 //服务端发送的消息
                 $('#message_content').append(event.data+'\n');
+                alert(event.data);
             };
             ws.onclose = function(){
-                $('#message_content').append('用户['+username+'] 已经滚出聊天室!');
+                if(vip.indexOf(username) > -1) {
+                    $('#message_content').append('亲爹VIP用户用户['+username+'] 不屑一顾的离开本聊天室!');
+                } else {
+                    $('#message_content').append('穷逼屌丝用户['+username+'] 灰溜溜滚出聊天室!');
+                }
+
                 console.log("关闭 websocket 连接...");
             }
+            //设置用户姓名后输入框不可用
+            $("#in_user_name").attr("disabled","disabled");
+            //加入聊天室按钮不可用
+            $('#user_join').attr("disabled","disabled");
         });
         //客户端发送消息到服务器
         $('#user_send_all').click(function(){
             var msg = $('#in_room_msg').val();
-            if(msg==''){
+            if(msg == "" || msg == undefined || msg == null || (msg.length>0 && msg.trim().length == 0)){
                 alert("请填写消息！");
                 return;
             }
