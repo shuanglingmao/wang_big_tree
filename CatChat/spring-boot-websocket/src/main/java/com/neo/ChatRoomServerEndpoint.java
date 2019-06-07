@@ -18,16 +18,21 @@ import static com.neo.utils.WebSocketUtils.sendMessageAll;
 @ServerEndpoint("/chat-room/{username}")
 public class ChatRoomServerEndpoint {
     private static final Logger logger = LoggerFactory.getLogger(ChatRoomServerEndpoint.class);
+    //vip会员组
     private static Set<String> vipName = new HashSet<String>(){{
         add("毛双领");
         add("顶天立地智慧大将军");
+        add("星际宇宙超级美少女");
+        add("王屁呆");
+        add("许嵩");
     }};
     @OnOpen
     public void openSession(@PathParam("username") String username, Session session) {
         ONLINE_USER_SESSIONS.put(username, session);
-        String message = "欢迎穷逼屌丝用户[" + username + "] 溜到聊天室,请文明聊天！";
+        String message = "欢迎穷逼屌丝用户：[" + username + "] 溜到聊天室,请文明聊天！";
         if (vipName.contains(username)) {
-            message = "欢迎亲爹VIP用户[" + username + "] 大驾光临聊天室,请文明聊天！";
+//            message = "欢迎亲爹VIP用户[" + username + "] 大驾光临聊天室,请文明聊天！";
+            message = "欢迎亲爹VIP用户：<span style='color:red'>[" + username + "]</span> 大驾光临聊天室,请文明聊天！";
         }
         logger.info("用户登录："+message);
         sendMessageAll(message);
@@ -35,12 +40,18 @@ public class ChatRoomServerEndpoint {
 
     @OnMessage
     public void onMessage(@PathParam("username") String username, String message) {
+//        if (vipName.contains(username)) {
+//            username = "亲爹VIP会员："+username;
+//        } else {
+//            username = "穷逼屌丝会员："+username;
+//        }
         if (vipName.contains(username)) {
-            username = "亲爹VIP会员："+username;
+            username = "亲爹VIP会员：<span style='color:red'>["+username+"]</span>:";
         } else {
-            username = "穷逼屌丝会员："+username;
+            username = "穷逼屌丝会员：["+username+"]:";
         }
-        sendMessageAll("<span style='color:red'>[" + username + "] : </span>" + message);
+//        sendMessageAll("<span style='color:red'>[" + username + "] : </span>" + message);
+        sendMessageAll(username + message);
         logger.info("发送消息："+message);
     }
 
