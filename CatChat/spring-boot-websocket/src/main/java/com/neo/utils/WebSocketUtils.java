@@ -7,14 +7,14 @@ import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class WebSocketUtils {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketUtils.class);
 
-    // 存储 websocket session
+    /** 存储 websocket session*/
     public static final Map<String, Session> ONLINE_USER_SESSIONS = new ConcurrentHashMap<>();
+
 
     /**
      * @param session 用户 session
