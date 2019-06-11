@@ -35,11 +35,12 @@ public class RedisService {
      * @param value
      * @return
      */
-    public boolean set(final String key, Object value) {
+    public <K,V> boolean set(final K key, V value) {
         boolean result = false;
         try {
-            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            ValueOperations<K, V> operations = redisTemplate.opsForValue();
             operations.set(key, value);
+            redisTemplate.expire(key, 1L, TimeUnit.DAYS);
             result = true;
         } catch (Exception e) {
             logger.error("set error: key {}, value {}",key,value,e);
@@ -54,12 +55,12 @@ public class RedisService {
      * @param expireTime
      * @return
      */
-    public boolean set(final String key, Object value, Long expireTime) {
+    public <K,V> boolean set(final K key, V value, Long expireTime,TimeUnit unit) {
         boolean result = false;
         try {
-            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+            ValueOperations<K, V> operations = redisTemplate.opsForValue();
             operations.set(key, value);
-            redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+            redisTemplate.expire(key, expireTime, unit);
             result = true;
         } catch (Exception e) {
             logger.error("set error: key {}, value {},expireTime {}",key,value,expireTime,e);
@@ -71,7 +72,7 @@ public class RedisService {
      * @param key
      * @return
      */
-    public boolean exists(final String key) {
+    public <K> boolean exists(final K key) {
         return redisTemplate.hasKey(key);
     }
 
@@ -79,9 +80,9 @@ public class RedisService {
      * @param key
      * @return
      */
-    public Object get(final String key) {
-        Object result = null;
-        ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+    public <K,V> V get(final K key) {
+        V result = null;
+        ValueOperations<K, V> operations = redisTemplate.opsForValue();
         result = operations.get(key);
         return result;
     }
@@ -90,7 +91,7 @@ public class RedisService {
      * remove single key
      * @param key
      */
-    public void remove(final String key) {
+    public <K> void remove(final K key) {
         if (exists(key)) {
             redisTemplate.delete(key);
         }
@@ -100,8 +101,8 @@ public class RedisService {
      * batch delete
      * @param keys
      */
-    public void remove(final String... keys) {
-        for (String key : keys) {
+    public <K> void remove(final K... keys) {
+        for (K key : keys) {
             remove(key);
         }
     }
@@ -144,8 +145,8 @@ public class RedisService {
      * @param k
      * @param v
      */
-    public void push(String k,Object v){
-        ListOperations<String, Object> list = redisTemplate.opsForList();
+    public <K,V> void push(K k,V v){
+        ListOperations<K, V> list = redisTemplate.opsForList();
         list.rightPush(k,v);
     }
 
@@ -156,8 +157,8 @@ public class RedisService {
      * @param l1
      * @return
      */
-    public List<Object> range(String k, long l, long l1){
-        ListOperations<String, Object> list = redisTemplate.opsForList();
+    public <K,V> List<V> range(K k, long l, long l1){
+        ListOperations<K, V> list = redisTemplate.opsForList();
         return list.range(k,l,l1);
     }
 
@@ -166,8 +167,8 @@ public class RedisService {
      * @param key
      * @param value
      */
-    public void setAdd(String key,Object value){
-        SetOperations<String, Object> set = redisTemplate.opsForSet();
+    public <K,V> void setAdd(K key,V value){
+        SetOperations<K, V> set = redisTemplate.opsForSet();
         set.add(key,value);
     }
 
@@ -176,8 +177,8 @@ public class RedisService {
      * @param key
      * @return
      */
-    public Set<Object> setMembers(String key){
-        SetOperations<String, Object> set = redisTemplate.opsForSet();
+    public <K,V> Set<V> setMembers(K key){
+        SetOperations<K, V> set = redisTemplate.opsForSet();
         return set.members(key);
     }
 
@@ -187,8 +188,8 @@ public class RedisService {
      * @param value
      * @param scoure
      */
-    public void zAdd(String key,Object value,double scoure){
-        ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
+    public <K,V> void zAdd(K key,V value,double scoure){
+        ZSetOperations<K, V> zset = redisTemplate.opsForZSet();
         zset.add(key,value,scoure);
     }
 
@@ -199,8 +200,8 @@ public class RedisService {
      * @param scoure1
      * @return
      */
-    public Set<Object> rangeByScore(String key,double scoure,double scoure1){
-        ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
+    public <K,V> Set<V> rangeByScore(K key,double scoure,double scoure1){
+        ZSetOperations<K, V> zset = redisTemplate.opsForZSet();
         return zset.rangeByScore(key, scoure, scoure1);
     }
 }

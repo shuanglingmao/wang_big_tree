@@ -12,8 +12,6 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.neo.utils.WebSocketUtils.ONLINE_USER_SESSIONS;
 import static com.neo.utils.WebSocketUtils.sendMessageAll;

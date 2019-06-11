@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public final class RedisCacheUtils{
-    private static ApplicationContext applicationContext;
 
     @Autowired
     private RedisService redisService;
@@ -46,14 +45,12 @@ public final class RedisCacheUtils{
     public <T> T get(String key, AbstractCacheData<T> cacheData) {
         T result = get(key);
         if (result != null) {
-            System.out.println("从缓存读取数据"+key);
             return result;
         } else {
             result = cacheData.getDataFromDB();
             if (result != null) {
                 redisService.set(key,result);
             }
-            System.out.println("从数据库读取数据"+key);
             return result;
         }
     }
