@@ -25,8 +25,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User login(User user) {
         user.setPassWord(MD5Utils.getMD5String(user.getPassWord()));
-        User userByNameAndPassword = userMapper.getUserByNameAndPassword(user);
-        return userByNameAndPassword;
+        return userMapper.getUserByNameAndPassword(user);
     }
 
     @Override
