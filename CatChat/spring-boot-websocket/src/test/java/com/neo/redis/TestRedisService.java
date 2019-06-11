@@ -27,7 +27,7 @@ public class TestRedisService {
     
     @Test
     public void testObj() throws Exception {
-        User user=new User("ityouknow@126.com", "smile", "youknow", "know","2020");
+        User user=new User();
         redisService.set("user",user);
         User userR=(User) redisService.get("user");
         System.out.println("userR== "+userR.toString());

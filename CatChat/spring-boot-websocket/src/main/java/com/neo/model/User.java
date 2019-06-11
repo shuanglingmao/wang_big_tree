@@ -1,6 +1,8 @@
 package com.neo.model;
 
 import com.neo.enums.UserSexEnum;
+import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -11,105 +13,38 @@ import java.io.Serializable;
  * @date 2019/6/10 15:19
  * @param   
  * @return   
- */ 
+ */
+@Data
+@ToString
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	/**主键ID*/
 	private Long id;
+	/**用户名*/
 	private String userName;
+	/**密码*/
 	private String passWord;
-	private String email;
-	private String nickName;
-	private String regTime;
+	/**性别*/
 	private UserSexEnum userSex;
-
-	public User() {
-		super();
-	}
-	public User(String email, String nickName, String passWord, String userName, String regTime) {
-		super();
-		this.email = email;
-		this.nickName = nickName;
-		this.passWord = passWord;
-		this.userName = userName;
-		this.regTime = regTime;
-	}
-	public User(String userName, String password, UserSexEnum userSex) {
-		super();
-		this.passWord = password;
-		this.userName = userName;
-		this.userSex = userSex;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassWord() {
-		return passWord;
-	}
-
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public String getRegTime() {
-		return regTime;
-	}
-
-	public void setRegTime(String regTime) {
-		this.regTime = regTime;
-	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
-	public UserSexEnum getUserSex() {
-		return userSex;
-	}
-
-	public void setUserSex(UserSexEnum userSex) {
-		this.userSex = userSex;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", userName='" + userName + '\'' +
-				", password='" + passWord + '\'' +
-				", email='" + email + '\'' +
-				", nickname='" + nickName + '\'' +
-				", regTime='" + regTime + '\'' +
-				'}';
-	}
+	/**昵称*/
+	private String nickName;
+	/**电话号码*/
+	private String phoneNum;
+	/**级别*/
+	private Integer level;
+	/**地址*/
+	private String address;
+	/**注册时间*/
+	private String createTime;
+	/**邮箱*/
+	private String email;
+	/**余额*/
+	private Double amount;
+	/**积分*/
+	private Integer integral;
+	/**加密盐值*/
+	private String salt;
+	/**头像*/
+	private String chatHeadImg;
 }

@@ -25,9 +25,9 @@ public class UserMapperTest {
     private UserMapper userMapper;
     @Test
     public void testInsert() throws Exception {
-        userMapper.insert(new User("aammx", "a123456", UserSexEnum.MAN));
-        userMapper.insert(new User("bbmmx", "b123456", UserSexEnum.WOMAN));
-        userMapper.insert(new User("ccmmx", "b123456", UserSexEnum.WOMAN));
+//        userMapper.insert(new User("aammx", "a123456", UserSexEnum.MAN));
+//        userMapper.insert(new User("bbmmx", "b123456", UserSexEnum.WOMAN));
+//        userMapper.insert(new User("ccmmx", "b123456", UserSexEnum.WOMAN));
     }
 
     @Test
@@ -43,14 +43,14 @@ public class UserMapperTest {
 
     @Test
     public void insert() throws Exception {
-        userMapper.insert(new User("毛双领", "123456", UserSexEnum.MAN));
+//        userMapper.insert(new User("毛双领", "123456", UserSexEnum.MAN));
     }
 
     @Test
     public void update() throws Exception {
-        final User user = new User("毛双领", "666666", UserSexEnum.MAN);
-        user.setId(4L);
-        userMapper.update(user);
+//        final User user = new User("毛双领", "666666", UserSexEnum.MAN);
+//        user.setId(4L);
+//        userMapper.update(user);
         System.out.println(userMapper.getOne(4L));
     }
 

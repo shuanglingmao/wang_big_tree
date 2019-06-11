@@ -28,7 +28,7 @@ public class TestRedisTemplate {
     
     @Test
     public void testObj(){
-        User user=new User("ityouknow@126.com", "smile", "youknow", "know","2020");
+        User user=new User();
         ValueOperations<String, User> operations=redisTemplate.opsForValue();
         operations.set("com.neo", user);
         User u=operations.get("com.neo");
@@ -37,7 +37,7 @@ public class TestRedisTemplate {
 
     @Test
     public void testExpire() throws InterruptedException {
-        User user=new User("ityouknow@126.com", "expire", "youknow", "expire","2020");
+        User user=new User();
         ValueOperations<String, User> operations=redisTemplate.opsForValue();
         operations.set("expire", user,100,TimeUnit.MILLISECONDS);
         Thread.sleep(1000);
