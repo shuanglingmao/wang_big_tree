@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neo.mapper.UserMapper" >
-    <resultMap id="BaseResultMap" type="com.neo.model.User" >
+    <resultMap id="BaseResultMap" type="user" >
         <id column="id" property="id" jdbcType="BIGINT" />
         <result column="userName" property="userName" jdbcType="VARCHAR" />
         <result column="passWord" property="passWord" jdbcType="VARCHAR" />
@@ -28,14 +28,14 @@
 	   FROM users
     </select>
 
-    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+    <select id="getOne" parameterType="Long" resultMap="BaseResultMap" >
         SELECT 
        <include refid="Base_Column_List" />
 	   FROM users
 	   WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="com.neo.model.User" >
+    <insert id="insert" parameterType="user" >
        INSERT INTO 
        		users
        		(userName,passWord,user_sex)
@@ -43,7 +43,7 @@
        		(#{userName}, #{passWord}, #{userSex})
     </insert>
     
-    <update id="update" parameterType="com.neo.model.User" >
+    <update id="update" parameterType="user" >
        UPDATE 
        		users 
        SET 
@@ -54,19 +54,38 @@
        		id = #{id}
     </update>
     
-    <delete id="delete" parameterType="java.lang.Long" >
+    <delete id="delete" parameterType="Long" >
        DELETE FROM
        		 users 
        WHERE 
        		 id =#{id}
     </delete>
 
-    <select id="getUserByCondition" parameterType="com.neo.model.User" resultMap="BaseResultMap">
+    <select id="getUserByCondition" parameterType="user" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM users
         WHERE
         <include refid="Base_Select_Condition"/>
+    </select>
+
+    <select id="getUserByNameAndPassword" parameterType="user" resultType="user">
+        SELECT
+          id,
+          user_name AS userName,
+          password AS passWord,
+          user_sex AS userSex,
+          nick_name AS nickName,
+          phone_num AS phoneNum,
+          leavel ,
+          address,
+          create_time AS createTime,
+          email,
+          amount,
+          integral,
+          salt
+        FROM t_user
+        WHERE user_name = #{userName} and password = #{password}
     </select>
 
 </mapper>
