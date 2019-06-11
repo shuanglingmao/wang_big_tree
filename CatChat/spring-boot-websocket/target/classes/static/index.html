@@ -37,7 +37,7 @@
         vip[0]="毛双领"
         vip[1]="顶天立地智慧大将军"
         vip[2]="王大锤"
-        var urlPrefix ='ws://192.168.0.104:8080/chat-room/';
+        var urlPrefix ='ws://10.99.39.78:8080/chat-room/';
         var ws = null;
         $('#user_join').click(function(){
             //设置用户姓名后输入框不可用
@@ -62,15 +62,15 @@
                 // $('#message_content').append(event.data+'\n');
 
             };
-            ws.onclose = function(){
-                if(vip.indexOf(username) > -1) {
-                    $('#message_content').append('亲爹VIP用户用户['+username+'] 不屑一顾的离开本聊天室!');
-                } else {
-                    $('#message_content').append('穷逼屌丝用户['+username+'] 灰溜溜滚出聊天室!');
-                }
-
-                console.log("关闭 websocket 连接...");
-            }
+//            ws.onclose = function(){
+//                if(vip.indexOf(username) > -1) {
+//                    $('#message_content').append('亲爹VIP用户用户['+username+'] 不屑一顾的离开本聊天室!');
+//                } else {
+//                    $('#message_content').append('穷逼屌丝用户['+username+'] 灰溜溜滚出聊天室!');
+//                }
+//
+//                console.log("关闭 websocket 连接...");
+//            }
         });
         //客户端发送消息到服务器
         $('#user_send_all').click(function(){

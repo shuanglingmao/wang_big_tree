@@ -48,7 +48,10 @@ public class UserMapperTest {
 
     @Test
     public void update() throws Exception {
-        userMapper.update(new User("毛双领", "123456", UserSexEnum.MAN));
+        final User user = new User("毛双领", "666666", UserSexEnum.MAN);
+        user.setId(4L);
+        userMapper.update(user);
+        System.out.println(userMapper.getOne(4L));
     }
 
     @Test

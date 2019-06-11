@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neo.mapper.CityMapper" >
+
+
+
+    <select id="getAll" resultType="com.neo.model.City"  >
+       SELECT city_id           cityId,
+              city_no           cityNo,
+              city_name         cityName,
+              province_name     provinceName,
+              flag              flag
+	   FROM city
+    </select>
+
+    <select id="getCityById" parameterType="int" resultType="com.neo.model.City" >
+       SELECT city_id           cityId,
+              city_no           cityNo,
+              city_name         cityName,
+              province_name     provinceName,
+              flag              flag
+	   FROM city
+	   WHERE city_id = #{cityId}
+    </select>
+
+    <insert id="insert" parameterType="com.neo.model.User">
+       INSERT INTO 
+       		city
+       		(city_no,city_name,province_name,flag)
+       	VALUES
+       		(#{cityNo}, #{cityName}, #{provinceName},#{flag})
+    </insert>
+
+    
+    <delete id="delete" parameterType="int" >
+       DELETE FROM
+       		 city
+       WHERE 
+       		 city_id =#{cityId}
+    </delete>
+
+
+
+</mapper>

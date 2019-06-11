@@ -8,7 +8,7 @@ import java.io.Serializable;
  *    
  * @Description:  
  * @author shuangling.mao 
- * @date 2019/6/10 15:10  
+ * @date 2019/6/10 15:19
  * @param   
  * @return   
  */ 
@@ -17,26 +17,26 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String userName;
-	private String password;
+	private String passWord;
 	private String email;
-	private String nickname;
+	private String nickName;
 	private String regTime;
 	private UserSexEnum userSex;
 
 	public User() {
 		super();
 	}
-	public User(String email, String nickname, String password, String userName, String regTime) {
+	public User(String email, String nickName, String passWord, String userName, String regTime) {
 		super();
 		this.email = email;
-		this.nickname = nickname;
-		this.password = password;
+		this.nickName = nickName;
+		this.passWord = passWord;
 		this.userName = userName;
 		this.regTime = regTime;
 	}
 	public User(String userName, String password, UserSexEnum userSex) {
 		super();
-		this.password = password;
+		this.passWord = password;
 		this.userName = userName;
 		this.userSex = userSex;
 	}
@@ -57,12 +57,12 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPassWord() {
+		return passWord;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
 	public String getEmail() {
@@ -73,12 +73,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getRegTime() {
@@ -106,9 +106,9 @@ public class User implements Serializable {
 		return "User{" +
 				"id=" + id +
 				", userName='" + userName + '\'' +
-				", password='" + password + '\'' +
+				", password='" + passWord + '\'' +
 				", email='" + email + '\'' +
-				", nickname='" + nickname + '\'' +
+				", nickname='" + nickName + '\'' +
 				", regTime='" + regTime + '\'' +
 				'}';
 	}

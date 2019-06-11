@@ -1,4 +1,4 @@
-package com.neo.datasource;
+package com.neo.config.datasource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

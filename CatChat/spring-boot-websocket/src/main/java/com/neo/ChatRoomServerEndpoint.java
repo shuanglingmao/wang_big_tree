@@ -1,7 +1,11 @@
 package com.neo;
 
+import com.neo.config.websocket.MyEndpointConfigure;
+import com.neo.service.RedisService;
+import com.neo.strategy.factory.VipStrategyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.*;
@@ -15,56 +19,50 @@ import static com.neo.utils.WebSocketUtils.ONLINE_USER_SESSIONS;
 import static com.neo.utils.WebSocketUtils.sendMessageAll;
 
 @RestController
-@ServerEndpoint("/chat-room/{username}")
+@ServerEndpoint(value = "/chat-room/{username}",configurator = MyEndpointConfigure.class)
 public class ChatRoomServerEndpoint {
     private static final Logger logger = LoggerFactory.getLogger(ChatRoomServerEndpoint.class);
-    //vip会员组
-    private static Set<String> vipName = new HashSet<String>(){{
-        add("毛双领");
-        add("顶天立地智慧大将军");
-        add("星际宇宙超级美少女");
-        add("王屁呆");
-        add("许嵩");
-    }};
+    @Autowired
+    private VipStrategyFactory vipStrategyFactory;
+    @Autowired
+    private RedisService redisService;
+
+    /**
+     * 有用户连接
+     * @param username
+     * @param session
+     */
     @OnOpen
     public void openSession(@PathParam("username") String username, Session session) {
         ONLINE_USER_SESSIONS.put(username, session);
-        String message = "欢迎穷逼屌丝用户：[" + username + "] 溜到聊天室,请文明聊天！";
-        if (vipName.contains(username)) {
-//            message = "欢迎亲爹VIP用户[" + username + "] 大驾光临聊天室,请文明聊天！";
-            message = "欢迎亲爹VIP用户：<span style='color:red'>[" + username + "]</span> 大驾光临聊天室,请文明聊天！";
-        }
+        String message = vipStrategyFactory.getVipStrategy(username).getInRoomWrap(username);
         logger.info("用户登录："+message);
         sendMessageAll(message);
     }
 
+    /**
+     * 用户发消息
+     * @param username
+     * @param message
+     */
     @OnMessage
     public void onMessage(@PathParam("username") String username, String message) {
-//        if (vipName.contains(username)) {
-//            username = "亲爹VIP会员："+username;
-//        } else {
-//            username = "穷逼屌丝会员："+username;
-//        }
-        if (vipName.contains(username)) {
-            username = "亲爹VIP会员：<span style='color:red'>["+username+"]</span>:";
-        } else {
-            username = "穷逼屌丝会员：["+username+"]:";
-        }
-//        sendMessageAll("<span style='color:red'>[" + username + "] : </span>" + message);
-        sendMessageAll(username + message);
-        logger.info("发送消息："+message);
+        sendMessageAll(vipStrategyFactory.getVipStrategy(username).getSentMsgWrap(username) + message);
+        logger.info("用户:["+username+"] 发送消息："+message);
     }
 
+
+    /**
+     * 用户断开连接
+     * @param username
+     * @param session
+     */
     @OnClose
     public void onClose(@PathParam("username") String username, Session session) {
         //当前的Session 移除
         ONLINE_USER_SESSIONS.remove(username);
         //并且通知其他人当前用户已经离开聊天室了
-        if (vipName.contains(username)) {
-            sendMessageAll("亲爹VIP会员[" + username + "] 已经不屑一顾的离开聊天室了！");
-        } else {
-            sendMessageAll("穷逼屌丝会员[" + username + "] 已经滚出聊天室了！");
-        }
+        sendMessageAll(vipStrategyFactory.getVipStrategy(username).getOutRoomWrap(username));
         try {
             session.close();
         } catch (IOException e) {

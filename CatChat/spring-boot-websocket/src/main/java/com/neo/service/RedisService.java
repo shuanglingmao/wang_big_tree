@@ -25,6 +25,10 @@ public class RedisService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    public boolean isVip(String key) {
+        return redisTemplate.hasKey(key);
+    }
+
     /**
      * set value
      * @param key
