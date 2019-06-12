@@ -71,10 +71,6 @@ public class ReptileUtils {
         URLConnection conn=url.openConnection();
         //通过链接取得网页返回的数据
         InputStream is=conn.getInputStream();
-        System.out.println(conn.getContentEncoding());
-        //一般按行读取网页数据，并进行内容分析
-        //因此用BufferedReader和InputStreamReader把字节流转化为字符流的缓冲流
-        //进行转换时，需要处理编码格式问题
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         byte[] bs = new byte[2000];
         while (is.read(bs) != -1){
