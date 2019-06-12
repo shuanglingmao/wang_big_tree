@@ -68,6 +68,17 @@ public class RedisService {
         return result;
     }
 
+    public<K, V> boolean setIfAbsent(final K key,V value,Long expireTime,TimeUnit unit) {
+        boolean result = false;
+        try {
+            ValueOperations<K, V> operations = redisTemplate.opsForValue();
+            result = operations.setIfAbsent(key,value,expireTime,unit);
+        } catch (Exception e) {
+            logger.error("setIfAbsent error: key {}, value {},expireTime {}",key,value,expireTime,e);
+        }
+        return result;
+    }
+
     /**
      * @param key
      * @return
