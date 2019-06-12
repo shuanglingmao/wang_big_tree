@@ -28,7 +28,7 @@
 	   FROM users
     </select>
 
-    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+    <select id="getOne" parameterType="Long" resultMap="BaseResultMap" >
         SELECT 
        <include refid="Base_Column_List" />
 	   FROM users
@@ -54,7 +54,7 @@
        		id = #{id}
     </update>
     
-    <delete id="delete" parameterType="java.lang.Long" >
+    <delete id="delete" parameterType="Long" >
        DELETE FROM
        		 users 
        WHERE 
@@ -67,6 +67,25 @@
         FROM users
         WHERE
         <include refid="Base_Select_Condition"/>
+    </select>
+
+    <select id="getUserByNameAndPassword" parameterType="com.neo.model.User" resultType="com.neo.model.User">
+        SELECT
+          id,
+          user_name AS userName,
+          password AS passWord,
+          user_sex AS userSex,
+          nick_name AS nickName,
+          phone_num AS phoneNum,
+          leavel ,
+          address,
+          create_time AS createTime,
+          email,
+          amount,
+          integral,
+          salt
+        FROM t_user
+        WHERE user_name = #{userName} and password = #{password}
     </select>
 
 </mapper>

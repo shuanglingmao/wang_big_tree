@@ -16,14 +16,14 @@ public interface UserService {
      * @param user
      * @return
      */
-    boolean login(User user);
+    User login(User user);
 
     /**
      * 注册
      * @param user
      * @return
      */
-    boolean register(User user);
+    void register(User user);
 
     /**
      * 完善信息
