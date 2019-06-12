@@ -34,13 +34,17 @@ public class ReptileUtils {
             //按行读取并打印
             String line=null;
             while((line=br.readLine())!=null){
-                if (line.contains(".png") || line.contains(".jpg")){
+                if (line.contains(".png") || line.contains(".jpg") || line.contains(".gif")){
                     while(true){
                         int src = line.indexOf("src=");
                         int jpg = line.indexOf(".jpg");
                         int png = line.indexOf(".png");
+                        int gif = line.indexOf(".gif");
                         if (jpg>png || jpg == -1){
                             jpg = png;
+                        }
+                        if (jpg>gif || jpg == -1){
+                            jpg = gif;
                         }
                         if (src > jpg){
                             line = line.substring(jpg+5,line.length());
@@ -76,6 +80,7 @@ public class ReptileUtils {
         while (is.read(bs) != -1){
             fileOutputStream.write(bs);
         }
+        fileOutputStream.flush();
         is.close();
         fileOutputStream.close();
     }
