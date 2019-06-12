@@ -3,13 +3,21 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for `users`
 -- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `userName` varchar(32) DEFAULT NULL COMMENT '用户名',
-  `passWord` varchar(32) DEFAULT NULL COMMENT '密码',
-  `user_sex` varchar(32) DEFAULT NULL,
-  `nick_name` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
+	id BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+	user_name VARCHAR (32) DEFAULT NULL COMMENT '用户名',
+	password VARCHAR (32) DEFAULT NULL COMMENT '密码',
+	user_sex VARCHAR (32) DEFAULT NULL COMMENT '性别',
+	nick_name VARCHAR (255) DEFAULT NULL COMMENT '昵称',
+	phone_num VARCHAR (32) DEFAULT NULL COMMENT '手机号码',
+	leavel INTEGER DEFAULT 0 COMMENT '级别',
+	address VARCHAR (255) DEFAULT NULL COMMENT '地址',
+	create_time VARCHAR (32) DEFAULT NULL COMMENT '注册日期',
+	email VARCHAR (255) DEFAULT NULL COMMENT '邮箱',
+	amount DECIMAL (10, 2) DEFAULT NULL COMMENT '余额',
+	integral INTEGER (20) DEFAULT 0 COMMENT '积分',
+	salt VARCHAR (32) DEFAULT NULL COMMENT '盐值',
+	PRIMARY KEY (`id`)
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8;
 
