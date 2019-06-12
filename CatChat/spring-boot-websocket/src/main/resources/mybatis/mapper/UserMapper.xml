@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.neo.mapper.UserMapper" >
-    <resultMap id="BaseResultMap" type="user" >
+    <resultMap id="BaseResultMap" type="com.neo.model.User" >
         <id column="id" property="id" jdbcType="BIGINT" />
         <result column="userName" property="userName" jdbcType="VARCHAR" />
         <result column="passWord" property="passWord" jdbcType="VARCHAR" />
@@ -35,7 +35,7 @@
 	   WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="user" >
+    <insert id="insert" parameterType="com.neo.model.User" >
        INSERT INTO 
        		users
        		(userName,passWord,user_sex)
@@ -43,7 +43,7 @@
        		(#{userName}, #{passWord}, #{userSex})
     </insert>
     
-    <update id="update" parameterType="user" >
+    <update id="update" parameterType="com.neo.model.User" >
        UPDATE 
        		users 
        SET 
@@ -61,7 +61,7 @@
        		 id =#{id}
     </delete>
 
-    <select id="getUserByCondition" parameterType="user" resultMap="BaseResultMap">
+    <select id="getUserByCondition" parameterType="com.neo.model.User" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM users
@@ -69,7 +69,7 @@
         <include refid="Base_Select_Condition"/>
     </select>
 
-    <select id="getUserByNameAndPassword" parameterType="user" resultType="user">
+    <select id="getUserByNameAndPassword" parameterType="com.neo.model.User" resultType="com.neo.model.User">
         SELECT
           id,
           user_name AS userName,
