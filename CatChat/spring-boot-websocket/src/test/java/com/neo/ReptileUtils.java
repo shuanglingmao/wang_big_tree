@@ -5,7 +5,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * description:爬取图片工具
@@ -50,12 +49,11 @@ public class ReptileUtils {
                             if (jpg>png || jpg == -1){
                                 jpg = png;
                             }
-                            System.out.println(src);
                             if (src == 0 || jpg == -1) {
                                 break;
                             }
                             list.add("http://"+line.substring(src,jpg+4).split("//")[1]);
-                            line = line.substring(jpg+3,line.length());
+                            line = line.substring(jpg+5,line.length());
                         }
                         for (String s : list) {
                             reptile(s,true,file);
