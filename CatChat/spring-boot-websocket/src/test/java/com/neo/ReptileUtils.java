@@ -14,7 +14,7 @@ import java.net.URLConnection;
 public class ReptileUtils {
 
     public static void main(String[] args) {
-        reptile("http://www.baidu.com","E:\\");
+        reptile("https://pro.jd.com/mall/active/2enL5dxxLXG5SKmdLEEmsL7HrRrT/index.html?utm_source=kong&utm_medium=zssc&utm_campaign=t_1000027280_100756&utm_term=537708b4-3f80-4f60-8b86-109fb61084b2-p_1999-pr_1664-at_100756&jd_pop=537708b4-3f80-4f60-8b86-109fb61084b2&abt=0","E:\\image\\");
     }
 
 
@@ -36,13 +36,17 @@ public class ReptileUtils {
             while((line=br.readLine())!=null){
                 if (line.contains(".png") || line.contains(".jpg")){
                     while(true){
-                        int src = line.indexOf("src");
+                        int src = line.indexOf("src=");
                         int jpg = line.indexOf(".jpg");
                         int png = line.indexOf(".png");
                         if (jpg>png || jpg == -1){
                             jpg = png;
                         }
-                        if (src == 0 || jpg == -1) {
+                        if (src > jpg){
+                            line = line.substring(jpg+5,line.length());
+                            continue;
+                        }
+                        if (src == -1 || jpg == -1) {
                             break;
                         }
                         reptileImg("http://"+line.substring(src,jpg+4).split("//")[1],file+ System.currentTimeMillis()+line.substring(jpg,jpg+4));
