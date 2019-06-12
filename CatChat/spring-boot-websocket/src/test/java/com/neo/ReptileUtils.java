@@ -41,7 +41,6 @@ public class ReptileUtils {
                     bo.write(line);
                 }else{
                     if (line.contains(".png") || line.contains(".jpg")){
-                        List<String> list = new ArrayList<>();
                         while(true){
                             int src = line.indexOf("src");
                             int jpg = line.indexOf(".jpg");
@@ -52,13 +51,9 @@ public class ReptileUtils {
                             if (src == 0 || jpg == -1) {
                                 break;
                             }
-                            list.add("http://"+line.substring(src,jpg+4).split("//")[1]);
+                            reptile("http://"+line.substring(src,jpg+4).split("//")[1],true,file);
                             line = line.substring(jpg+5,line.length());
                         }
-                        for (String s : list) {
-                            reptile(s,true,file);
-                        }
-
                     }
                 }
             }
