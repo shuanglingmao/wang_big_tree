@@ -1,5 +1,6 @@
 package com.neo.controller;
 
+import com.neo.annotation.AvoidRepeatableCommit;
 import com.neo.model.User;
 import com.neo.service.UserService;
 import org.slf4j.Logger;
@@ -52,4 +53,12 @@ public class UserController{
         return true;
     }
 
+
+    @RequestMapping("/test")
+    @ResponseBody
+    @AvoidRepeatableCommit
+    public Object test(Integer num){
+        System.out.println(1);
+        return num > 0;
+    }
 }
