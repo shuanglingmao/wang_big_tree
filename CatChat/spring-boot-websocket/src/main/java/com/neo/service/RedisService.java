@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @param
  * @return
  */
-@Service
+@Service("redisService")
 public class RedisService {
     private Logger logger = LoggerFactory.getLogger(RedisService.class);
     @Autowired
@@ -72,6 +72,7 @@ public class RedisService {
         boolean result = false;
         try {
             ValueOperations<K, V> operations = redisTemplate.opsForValue();
+            //原子操作
             result = operations.setIfAbsent(key,value,expireTime,unit);
         } catch (Exception e) {
             logger.error("setIfAbsent error: key {}, value {},expireTime {}",key,value,expireTime,e);

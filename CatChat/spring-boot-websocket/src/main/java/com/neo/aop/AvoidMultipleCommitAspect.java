@@ -1,9 +1,9 @@
 package com.neo.aop;
 
-import com.neo.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -16,12 +16,13 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Slf4j
-//@Order()
 public class AvoidMultipleCommitAspect {
-    @Autowired
-    private RedisService redisService;
 
-
+    @Around("@annotation(com.neo.annotation.AvoidMultipleCommit)")
+    public Object around(ProceedingJoinPoint point) throws Throwable {
+        System.out.println("你已经别我代理了");
+        return point.proceed();
+    }
 
 
 

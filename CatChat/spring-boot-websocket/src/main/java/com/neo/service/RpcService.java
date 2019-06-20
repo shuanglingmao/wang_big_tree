@@ -1,8 +1,10 @@
 package com.neo.service;
 
+import com.neo.annotation.AvoidMultipleCommit;
 import com.neo.annotation.AvoidRepeatableCommit;
 import com.neo.model.Result;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,11 +13,13 @@ import org.springframework.stereotype.Service;
  * @author shuangling.mao
  * @date 2019/6/14 11:02
  */
-@Service("prcService")
+@Service("rpcService")
 public class RpcService {
-
-    @AvoidRepeatableCommit
+    @Value("${test.message}")
+    private String port;
+    @AvoidMultipleCommit
     public Result<Boolean> getFlag(String parm) {
+        System.out.println(port+"==================");
         if (Strings.isNotBlank(parm)) {
             return new Result<Boolean>(true,0,"");
         } else {
