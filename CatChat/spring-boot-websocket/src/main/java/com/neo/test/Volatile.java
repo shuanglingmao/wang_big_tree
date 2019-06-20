@@ -97,7 +97,7 @@ public class Volatile {
         while (myData.number == 0) {
             //等于0 死循环
         }
-
+//提交一行注释
         System.out.println(Thread.currentThread().getName()+"\t mission is over,main get number value:" + myData.number);
     }
 }
