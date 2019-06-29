@@ -47,4 +47,12 @@ public class User implements Serializable {
 	private String salt;
 	/**头像*/
 	private String chatHeadImg;
+	private Integer age;
+	private Double salary;
+
+    public User(Integer id) {
+    }
+
+	public User() {
+	}
 }
