@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/6/28 0028
- * @Author 毛双领 <shuangling.mao@ucarinc.com>
+ * @Author 毛双领 <shuangling.mao>
  */
 public class ThreadPoolExecutorExtend extends ThreadPoolExecutor {
 

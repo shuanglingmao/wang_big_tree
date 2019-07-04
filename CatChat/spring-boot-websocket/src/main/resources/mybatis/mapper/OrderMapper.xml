@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neo.mapper.OrderMapper" >
+
+    
+
+
+
+
+    <select id="getAll" resultType="com.neo.model.Order"  >
+       SELECT id as id, order_name as orderName,quantity as quantity,create_time as createTime
+	   FROM t_order
+    </select>
+
+    <select id="getOne" parameterType="Integer" resultType="com.neo.model.Order" >
+      SELECT id as id, order_name as orderName,quantity as quantity,create_time as createTime
+      FROM t_order
+	   WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.neo.model.Order" >
+       INSERT INTO 
+       		t_order
+       		(order_name,quantity,create_time)
+       	VALUES
+       		(#{orderName}, #{quantity},#{createTime})
+    </insert>
+    
+
+    
+    <delete id="delete" parameterType="Long" >
+       DELETE FROM
+       		 t_order
+       WHERE 
+       		 id =#{id}
+    </delete>
+
+
+
+
+
+</mapper>

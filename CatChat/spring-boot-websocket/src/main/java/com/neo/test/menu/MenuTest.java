@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/6/29 0029
- * @Author 毛双领 <shuangling.mao@ucarinc.com>
+ * @Author 毛双领 <shuangling.mao>
  */
 public class MenuTest {
     List<Menu> list;
@@ -172,5 +172,13 @@ public class MenuTest {
             System.out.println(JSONObject.toJSONString(menu.getList()));
         }
     }
+
+
+    @Test
+    public void test3() {
+
+    }
+
+
 
 }

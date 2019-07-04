@@ -10,7 +10,7 @@ import java.util.concurrent.*;
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/6/28 0028
- * @Author 毛双领 <shuangling.mao@ucarinc.com>
+ * @Author 毛双领 <shuangling.mao>
  */
 public class MyThreadPoolTest {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -86,5 +86,14 @@ public class MyThreadPoolTest {
         public void executeBefore(Thread t) {
 
         }
+    }
+
+    @Test
+    public void test2() throws ExecutionException, InterruptedException {
+        FutureTask<Integer> futureTask = new FutureTask<>(() -> 666);
+
+        new Thread(futureTask).start();
+
+        System.out.println(futureTask.get());
     }
 }

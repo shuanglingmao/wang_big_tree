@@ -1,11 +1,10 @@
 package com.neo.test.test.test.test;
 
+import com.google.common.collect.Lists;
 import com.neo.model.User;
 import jdk.nashorn.internal.objects.annotations.Constructor;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.val;
+import lombok.*;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -20,7 +19,7 @@ import java.util.stream.Stream;
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/6/24 0024
- * @Author 毛双领 <shuangling.mao@ucarinc.com>
+ * @Author 毛双领 <shuangling.mao>
  */
 public class StreamAPIDemo {
     List<Integer> list = new ArrayList<Integer>() {{
@@ -243,5 +242,55 @@ public class StreamAPIDemo {
         return cat1.getName();
     }
 
+
+    @Test
+    public void testCollect() {
+        List<Person> personlist = Lists.newArrayList(new Person(1,"1"),new Person(2,"2"),
+                new Person(3,"3"),new Person(4,"4"),new Person(5,"5"));
+
+
+        ArrayList<Man> collect = personlist.stream().collect(() -> new ArrayList<Man>(), (list, person) -> {
+            list.add(new Man(person.getId(), person.getName()));
+        }, (m,n)->{});
+
+        ArrayList<Man> collect1 = personlist.stream().collect(ArrayList::new, (list, person) -> {
+            list.add(new Man(person.getId(), person.getName()));
+        }, (m,n)->{});
+
+
+        collect.forEach(System.out :: println);
+
+
+        List<Person> result = Lists.transform(personlist, person -> {
+            final Person person1 = new Person();
+            person1.setId(person.getId());
+            person1.setName(person.getName());
+            return person;
+        });
+
+    }
+
 }
 
+
+
+
+
+
+
+@Data
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+class Person {
+    private Integer id;
+    private String name;
+}
+
+@Data
+@ToString
+@AllArgsConstructor
+class Man {
+    private Integer id;
+    private String name;
+}
