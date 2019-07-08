@@ -14,9 +14,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Author 毛双领 <shuangling.mao@ucarinc.com>
  */
 public class Atomic {
+
     private static AtomicInteger atomicInteger = new AtomicInteger();
 
+    private static Integer num = 0;
+
     public static void main(String[] args) {
+//        atomicIncrement();
+        UnAtomicIncrement();
+    }
+
+    private static void atomicIncrement() {
         for (int i = 1; i <= 100; i++) {
             new Thread(() -> {
                 for (int j = 1; j <= 200; j++) {
@@ -31,4 +39,22 @@ public class Atomic {
 
         System.out.println("mission is over,value:\t" + atomicInteger);
     }
+
+    private static void UnAtomicIncrement() {
+        for (int i = 1; i <= 100; i++) {
+            new Thread(() -> {
+                for (int j = 1; j <= 200; j++) {
+                    num++;
+                }
+            }).start();
+        }
+
+        while (Thread.activeCount() > 2 ) {
+            Thread.yield();
+        }
+
+        System.out.println("mission is over,value:\t" + num);
+    }
+
+
 }

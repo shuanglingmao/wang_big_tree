@@ -93,11 +93,12 @@ public class Volatile {
             System.out.println(Thread.currentThread().getName()+"\t update number value: "+myData.number);
         },"AAA").start();
 
+
         //        加volatile 线程修改后 其他线程可以迅速获取最新值
         while (myData.number == 0) {
             //等于0 死循环
         }
-//提交一行注释
+
         System.out.println(Thread.currentThread().getName()+"\t mission is over,main get number value:" + myData.number);
     }
 }
