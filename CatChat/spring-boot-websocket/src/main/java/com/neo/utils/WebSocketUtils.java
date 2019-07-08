@@ -8,6 +8,7 @@ import javax.websocket.Session;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 public final class WebSocketUtils {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketUtils.class);
@@ -37,6 +38,7 @@ public final class WebSocketUtils {
 
     public static void sendMessageAll(String message) {
         ONLINE_USER_SESSIONS.forEach((sessionId, session) -> sendMessage(session, message));
+
     }
 
 }
