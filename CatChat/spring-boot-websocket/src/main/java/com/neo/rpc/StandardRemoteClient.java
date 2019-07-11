@@ -1,6 +1,8 @@
 package com.neo.rpc;
 
 import com.neo.rpc.vo.RemoteClientContextVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Future;
 
@@ -12,27 +14,54 @@ import java.util.concurrent.Future;
  * @Author 毛双领 <shuangling.mao>
  */
 public class StandardRemoteClient implements RemoteClient {
-    private RemoteClientInternal execute;
+    /** 日志 */
+    private static final Logger LOG = LoggerFactory.getLogger(StandardRemoteClient.class);
 
+    /** 远程调用策略 */
+    private RemoteClientStrategy strategy;
+
+    /** 远程调用vo */
     private RemoteClientContextVO vo ;
 
-    StandardRemoteClient(RemoteClientInternal execute , RemoteClientContextVO vo ) {
-        this.execute = execute;
-        if(vo == null){
-            this.vo = new RemoteClientContextVO();
-        }else{
-            this.vo = vo ;
-        }
-
+    /**
+     * 有参构造器
+     * @param strategy
+     * @param vo
+     */
+    public StandardRemoteClient(RemoteClientStrategy strategy , RemoteClientContextVO vo) {
+        this.strategy = strategy;
+        this.vo = vo != null ? vo : new RemoteClientContextVO();
     }
 
     @Override
     public Object executeObject(String serviceName, Object... objects) {
-        return null;
+        final String oldServiceName = RemoteContext.SERVICE_CONTEXT.get();
+        RemoteContext.SERVICE_CONTEXT.set(serviceName);
+
+        try {
+            Object result = strategy.defaultExecute(vo, serviceName, objects);
+            if (result != null) {
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug(result.toString());
+                }
+                return result;
+            }
+            return null;
+        } finally {
+            RemoteContext.SERVICE_CONTEXT.set(oldServiceName);
+        }
     }
 
     @Override
     public Future<Object> asynExecuteObject(String serviceName, Object... objects) {
-        return null;
+        String oldServiceName = RemoteContext.SERVICE_CONTEXT.get();
+        RemoteContext.SERVICE_CONTEXT.set(serviceName);
+
+        try{
+            Future<Object> future = strategy.asynExecute(vo ,serviceName, objects);
+            return future;
+        }finally{
+            RemoteContext.SERVICE_CONTEXT.set(oldServiceName);
+        }
     }
 }

@@ -15,32 +15,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *  服务调用，client context vo
- * <br/> Created on 2014-12-22 下午1:20:15
- * @author  李洪波(hb.li@zhuche.com)
- * @since 4.0
+ * @Description: 服务调用，client context vo
+ * @Version V1.0.0
+ * @Since 1.0
+ * @Date 2019/7
+ * @Author 毛双领
  */
 public class RemoteClientContextVO {
 
     private static final Logger LOG = LoggerFactory.getLogger(RemoteClientContextVO.class);
 
     private LoadBalancerTypeEnum remoteRebalanceType = LoadBalancerTypeEnum.Random;
-	
-	private RouteTypeEnum routeType = RouteTypeEnum.No; //默认不进行路由
+
+    /** 默认不进行路由 */
+	private RouteTypeEnum routeType = RouteTypeEnum.No;
 	
 	private RemoteType remoteType ;
 	
 	private String url ;
 	
 	private int repeatCount ;
-	//按照某个 值去hash ，做负载均衡
+	/** 按照某个 值去hash ，做负载均衡 */
 	private String hashValue ;
 
-    private ThreadLocal<RemoteServerInfo> remoteServerInfo = new ThreadLocal<RemoteServerInfo>(){
-        public RemoteServerInfo initialValue() {
-            return new RemoteServerInfo();
-        }
-    };
+
+    private ThreadLocal<RemoteServerInfo> remoteServerInfo = ThreadLocal.withInitial(() -> new RemoteServerInfo());
 
     public void setRemoteServerUrl(String remoteServiceUrl) {
         if (StringUtils.isBlank(remoteServiceUrl)) {

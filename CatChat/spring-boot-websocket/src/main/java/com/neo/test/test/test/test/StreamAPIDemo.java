@@ -1,6 +1,7 @@
 package com.neo.test.test.test.test;
 
 import com.google.common.collect.Lists;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.neo.model.User;
 import jdk.nashorn.internal.objects.annotations.Constructor;
 import lombok.*;
@@ -82,9 +83,8 @@ public class StreamAPIDemo {
         Stream<String> stream = Arrays.asList("aa", "bb", "cc", "dd", "ee").stream();
         stream.map(str -> str.toUpperCase()).forEach(System.out :: println);
 
-        //练习1 获取姓名长度大于3的用户姓名
+        //获取姓名长度大于3的用户姓名
         List<User> list = new ArrayList<User>();
-//        list.stream().map(user -> user.getUserName());  得到一个name流
         list.stream().map(User :: getUserName)
                 .filter(name -> name.length() > 3)
                 .forEach(System.out :: println);
@@ -270,6 +270,19 @@ public class StreamAPIDemo {
 
     }
 
+
+    @Test
+    public void testCollect1() {
+        List<TaxiDimAppraisal> taxiDimAppraisals  = Lists.newArrayList(new TaxiDimAppraisal("aa", "aa"), new TaxiDimAppraisal("bb", "bb"));
+
+        List<AppraiseScoreDTO> appraiseScoreDTOList  = taxiDimAppraisals.stream().collect(ArrayList::new, (list, taxi) -> {
+            list.add(AppraiseScoreDTO.builder().name(taxi.getName()).score(taxi.getScore()).build());
+        }, (m, n) -> {});
+
+
+        appraiseScoreDTOList.forEach(System.out :: println);
+    }
+
 }
 
 
@@ -293,4 +306,19 @@ class Person {
 class Man {
     private Integer id;
     private String name;
+}
+@Data
+@Builder
+@ToString
+class TaxiDimAppraisal {
+    private String name;
+    private String score;
+}
+
+@Data
+@Builder
+@ToString
+class AppraiseScoreDTO  {
+    private String name;
+    private String score;
 }

@@ -33,18 +33,18 @@ public final class RemoteClientFactory {
 	public static RemoteClient getInstance(String... type){
 		
 		if(type.length>1){
-//			throw new RpcRuntimeException("参数个数异常，不大于一个参数的个数，请检查！");
+			throw new RpcRuntimeException("参数个数异常，不大于一个参数的个数，请检查！");
 		}
 		String id = HESSIAN;
 		if(type.length == 1){
 			id = type[0];
 		}
 		Object o = SpringApplicationContext.getBean(id);
-		if(o != null && o instanceof RemoteClientInternal){
-			RemoteClientInternal execute = (RemoteClientInternal)o;
+		if(o != null && o instanceof RemoteClientStrategy){
+			RemoteClientStrategy strategy = (RemoteClientStrategy)o;
             RemoteClientContextVO vo = new RemoteClientContextVO();
             vo.setRemoteType(RemoteType.getRemoteType(id));
-			RemoteClient remoteService = new StandardRemoteClient(execute , vo);
+			RemoteClient remoteService = new StandardRemoteClient(strategy , vo);
 			return remoteService;
 		}else{
 			throw new RpcRuntimeException("服务提供者注册异常，请查看！");
@@ -63,12 +63,12 @@ public final class RemoteClientFactory {
 			id = type[0];
 		}
 		Object o = SpringApplicationContext.getBean(id);
-		if(o != null && o instanceof RemoteClientInternal){
-			RemoteClientInternal execute = (RemoteClientInternal)o;
+		if(o != null && o instanceof RemoteClientStrategy){
+			RemoteClientStrategy strategy = (RemoteClientStrategy)o;
 			RemoteClientContextVO vo = new RemoteClientContextVO();
 			vo.setUrl(url);
             vo.setRemoteType(RemoteType.getRemoteType(id));
-            RemoteClient remoteService = new StandardRemoteClient(execute,vo);
+            RemoteClient remoteService = new StandardRemoteClient(strategy,vo);
 			return remoteService;
 		}else{
 			throw new RpcRuntimeException("服务提供者注册异常，请查看！");
@@ -80,11 +80,11 @@ public final class RemoteClientFactory {
 	public static RemoteClient getInstance(RemoteType remoteType){
 		String type = RemoteType.isRemoteType(remoteType);
 		Object o = SpringApplicationContext.getBean(type);
-		if(o != null && o instanceof RemoteClientInternal){
-			RemoteClientInternal execute = (RemoteClientInternal)o;
+		if(o != null && o instanceof RemoteClientStrategy){
+			RemoteClientStrategy strategy = (RemoteClientStrategy)o;
             RemoteClientContextVO vo = new RemoteClientContextVO();
             vo.setRemoteType(remoteType);
-            RemoteClient remoteService = new StandardRemoteClient(execute , vo);
+            RemoteClient remoteService = new StandardRemoteClient(strategy, vo);
 			return remoteService;
 		}else{
 			throw new RpcRuntimeException("服务提供者注册异常，请查看！");
@@ -94,15 +94,15 @@ public final class RemoteClientFactory {
 	
 	
 	
-	public static RemoteClient getInstance(String url,RemoteType remoteType){
+	public static RemoteClient getInstance(String url, RemoteType remoteType){
 		String type = RemoteType.isRemoteType(remoteType);
 		Object o = SpringApplicationContext.getBean(type);
-		if(o != null && o instanceof RemoteClientInternal){
-			RemoteClientInternal execute = (RemoteClientInternal)o;
+		if(o != null && o instanceof RemoteClientStrategy){
+			RemoteClientStrategy strategy = (RemoteClientStrategy)o;
 			RemoteClientContextVO vo = new RemoteClientContextVO();
 			vo.setUrl(url);
 			vo.setRemoteType(remoteType);
-			RemoteClient remoteService = new StandardRemoteClient(execute,vo);
+			RemoteClient remoteService = new StandardRemoteClient(strategy,vo);
 			return remoteService;
 		}else{
 			throw new RpcRuntimeException("服务提供者注册异常，请查看！");
@@ -120,12 +120,12 @@ public final class RemoteClientFactory {
 	public static RemoteClient getInstance(int repeatCount ,RemoteType remoteType){
 		String type = RemoteType.isRemoteType(remoteType);
 		Object o = SpringApplicationContext.getBean(type);
-		if(o != null && o instanceof RemoteClientInternal){
-			RemoteClientInternal execute = (RemoteClientInternal)o;
+		if(o != null && o instanceof RemoteClientStrategy){
+			RemoteClientStrategy strategy = (RemoteClientStrategy)o;
 			RemoteClientContextVO vo = new RemoteClientContextVO();
 			vo.setRepeatCount(repeatCount);
             vo.setRemoteType(remoteType);
-            RemoteClient remoteService = new StandardRemoteClient(execute,vo);
+            RemoteClient remoteService = new StandardRemoteClient(strategy,vo);
 			return remoteService;
 		}else{
 			throw new RpcRuntimeException("服务提供者注册异常，请查看！");
@@ -146,9 +146,9 @@ public final class RemoteClientFactory {
 		Assert.notNull(vo);
 		String type = RemoteType.isRemoteType(vo.getRemoteType());
 		Object o = SpringApplicationContext.getBean(type);
-		if(o != null && o instanceof RemoteClientInternal){
-			RemoteClientInternal execute = (RemoteClientInternal)o;
-			RemoteClient remoteService = new StandardRemoteClient(execute,vo);
+		if(o != null && o instanceof RemoteClientStrategy){
+			RemoteClientStrategy strategy = (RemoteClientStrategy)o;
+			RemoteClient remoteService = new StandardRemoteClient(strategy,vo);
 			return remoteService;
 		}else{
 			throw new RpcRuntimeException("服务提供者注册异常，请查看！");

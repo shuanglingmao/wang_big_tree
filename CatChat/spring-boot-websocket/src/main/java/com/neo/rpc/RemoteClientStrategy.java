@@ -11,7 +11,7 @@ import java.util.concurrent.Future;
  * @Date 2019/7/4 0004
  * @Author 毛双领 <shuangling.mao>
  */
-public interface RemoteClientInternal {
+public interface RemoteClientStrategy {
     /**
      *
      * Description: 默认执行远程调用
@@ -38,10 +38,21 @@ public interface RemoteClientInternal {
      * Description: 指定地址的远程调用
      * url由客户端指定
      * @Version 1.5 2012-12-19 上午9:04:59 by 李洪波（hb.li@zhuche.com）创建
-     * @param url
+     * @param vo
      * @param serviceId
      * @param objects
      * @return
      */
     Object assignUrlExecute(RemoteClientContextVO vo , String serviceId, Object... objects);
+
+    /**
+     *
+     * Description: 重复执行rpc调用，试用可靠性较强的rpc调用
+     * @Version 2.5 2013-4-9 下午3:50:58 by 李洪波（hb.li@zhuche.com）创建
+     * @param vo，产生异常时重新调用的次数
+     * @param serviceId，服务id
+     * @param objects，参数对象
+     * @return
+     */
+    Object repeatExecute(RemoteClientContextVO vo , String serviceId, Object... objects);
 }
