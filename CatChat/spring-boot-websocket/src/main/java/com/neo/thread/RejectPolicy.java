@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * 线程拒绝策略枚举
  * 
- * 如果设置了maxSize, 当总线程数达到上限, 会调用RejectedExecutionHandler进行处理，此枚举为JDK预定义的几种策略枚举表示
+ * 如果设置了maxSize, 当总线程数达到上限并且阻塞队列中任务已满, 会调用RejectedExecutionHandler进行处理，此枚举为JDK预定义的几种策略枚举表示
  * 
  * @author shuangling.mao
  * @date  2019-06-13 17:09:19
