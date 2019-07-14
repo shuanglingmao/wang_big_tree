@@ -1,9 +1,5 @@
 package com.neo.test;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.misc.Unsafe;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/6/20 0020
- * @Author 毛双领 <shuangling.mao@ucarinc.com>
+ * @Author 毛双领 <shuangling.mao>
  */
 public class Atomic {
 

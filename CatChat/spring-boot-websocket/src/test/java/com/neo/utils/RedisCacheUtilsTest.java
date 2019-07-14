@@ -1,17 +1,13 @@
 package com.neo.utils;
 
-import com.neo.cache.AbstractCacheData;
 import com.neo.mapper.CityMapper;
 import com.neo.model.City;
 import com.neo.model.constant.RedisConstant;
-import net.bytebuddy.asm.Advice;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 /**
  * Description: 测试
@@ -35,12 +31,7 @@ public class RedisCacheUtilsTest {
     }
 
     private City get(Integer cityId) {
-        return redisCacheUtils.get(RedisConstant.CITY_KEY+cityId, new AbstractCacheData<City>() {
-            @Override
-            public City getDataFromDB() {
-                return cityMapper.getCityById(cityId);
-            }
-        });
+        return redisCacheUtils.get(RedisConstant.CITY_KEY+cityId, () -> cityMapper.getCityById(cityId));
     }
 
 }

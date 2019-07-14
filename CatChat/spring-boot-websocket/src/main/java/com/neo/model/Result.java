@@ -13,7 +13,6 @@ import java.io.Serializable;
  * </pre>
  *
  * @param <T>
- * @Version1.0 2017/5/10 15:01 by 王海涛（ht.wang05@zuche.com）创建
  */
 public class Result<T> implements Serializable {
 

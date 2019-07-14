@@ -7,8 +7,6 @@ import java.util.Date;
 
 /**
  * 日期辅助类
- * Created by qilei on 2015/3/9.
- * Modified by lixin 2016/8/16
  */
 public class DateUtil {
 	@Autowired
@@ -75,7 +73,6 @@ public class DateUtil {
      * @Description:增加分钟数
      * @param:date,i
      * @return:
-     * @Date: 2017/10/16 14:26 created by 邢利超(lichao.xing@ucarinc.com)
      */
 	public static Date addMinute(Date date, int i) {
 		Calendar cal = Calendar.getInstance();

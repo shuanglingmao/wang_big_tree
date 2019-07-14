@@ -4,8 +4,9 @@ import com.neo.cache.AbstractCacheData;
 import com.neo.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.function.Supplier;
 
 /**
  * Description: redis工具类
@@ -48,6 +49,27 @@ public final class RedisCacheUtils{
             return result;
         } else {
             result = cacheData.getDataFromDB();
+            if (result != null) {
+                redisService.set(key,result);
+            }
+            return result;
+        }
+    }
+
+    /**
+     * 获取数据,如果没有，调用钩子后存入valueCommands缓存
+     *
+     * @param <T>       the type parameter
+     * @param key       键
+     * @param supplier 缓存数据
+     * @return the t
+     */
+    public <T> T get(String key, Supplier<T> supplier) {
+        T result = get(key);
+        if (result != null) {
+            return result;
+        } else {
+            result = supplier.get();
             if (result != null) {
                 redisService.set(key,result);
             }

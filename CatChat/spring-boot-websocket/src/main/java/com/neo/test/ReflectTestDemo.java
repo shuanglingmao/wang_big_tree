@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
  * @Version V1.0.0
  * @Since 1.0
  * @Date 2019/6/26 0026
- * @Author 毛双领 <shuangling.mao@ucarinc.com>
+ * @Author 毛双领 <shuangling.mao>
  */
 
 public class ReflectTestDemo {

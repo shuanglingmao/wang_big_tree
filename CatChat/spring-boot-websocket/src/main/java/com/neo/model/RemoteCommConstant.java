@@ -4,7 +4,6 @@ package com.neo.model;
  * Description: 远程常量
  * All Rights Reserved.
  *
- * @version 1.0  2014-11-15 下午1:17:27  by 胡明华（mh.hu@zuche.com）创建
  */
 public class RemoteCommConstant {
 
