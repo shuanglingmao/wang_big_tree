@@ -1,5 +1,6 @@
 package com.neo.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
@@ -29,4 +30,23 @@ public class City implements Serializable {
         this.provinceName = provinceName;
         this.flag = flag;
     }
+
+    static class CityBuilder {
+        private Integer cityId;
+        private String cityNo;
+        private String cityName;
+        private String provinceName;
+        private Integer flag;
+
+        public City build() {
+            return new City(cityNo,cityName,provinceName,flag);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        System.out.println(1 == 1 ? 1 : 5.0);
+    }
+
+
 }

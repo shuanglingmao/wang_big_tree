@@ -87,4 +87,56 @@ public class MyThreadPoolTest {
 
         }
     }
+
+    @Test
+    public void test2() throws ExecutionException, InterruptedException {
+        FutureTask<Integer> futureTask = new FutureTask<>(() -> 666);
+
+        new Thread(futureTask).start();
+
+        System.out.println(futureTask.get());
+    }
+
+    @Test
+    public void test3() {
+
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_00_01"));
+        },"线程1").start();
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_12_88"));
+        },"线程2").start();
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_06_99"));
+        },"线程3").start();
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_01_99"));
+        },"线程4").start();
+        new Thread(()->{
+            System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_56_34"));
+        },"线程5").start();
+
+        try { TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e) { e.printStackTrace(); }
+        System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_00_01"));
+        System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_12_88"));
+        System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_01_99"));
+        System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_06_99"));
+        System.out.println(Thread.currentThread().getName()+"\t"+addVersionNumber("v_56_34"));
+
+    }
+
+    private String addVersionNumber(String versionNow){
+        StringBuilder stringBuilder = new StringBuilder("");
+        int i = versionNow.lastIndexOf("_");
+        String subNumber = versionNow.substring(i+1,versionNow.length());
+        Integer subNumberInteger = Integer.valueOf(subNumber)+1;
+        String faNumber = versionNow.substring(2,i);
+        Integer faNumberInteger = Integer.valueOf(faNumber);
+        if (subNumberInteger > 20){
+            stringBuilder.append("v_").append((faNumberInteger+1)).append("_0");
+        }else{
+            stringBuilder.append("v_").append(faNumberInteger).append("_").append(subNumberInteger);
+        }
+        return stringBuilder.toString();
+    }
 }

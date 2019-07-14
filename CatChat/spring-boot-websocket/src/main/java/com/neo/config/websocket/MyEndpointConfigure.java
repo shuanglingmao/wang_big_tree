@@ -1,5 +1,6 @@
 package com.neo.config.websocket;
 
+import com.neo.utils.SpringApplicationContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -28,5 +29,6 @@ public class MyEndpointConfigure extends ServerEndpointConfig.Configurator imple
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         System.out.println("auto load"+this.hashCode());
         MyEndpointConfigure.context = applicationContext;
+        SpringApplicationContext.initApplicationContext(applicationContext);
     }
 }

@@ -1,11 +1,11 @@
 package com.neo.test.test.test.test;
 
+import com.google.common.collect.Lists;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import com.neo.model.User;
 import jdk.nashorn.internal.objects.annotations.Constructor;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.val;
+import lombok.*;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -83,9 +83,8 @@ public class StreamAPIDemo {
         Stream<String> stream = Arrays.asList("aa", "bb", "cc", "dd", "ee").stream();
         stream.map(str -> str.toUpperCase()).forEach(System.out :: println);
 
-        //练习1 获取姓名长度大于3的用户姓名
+        //获取姓名长度大于3的用户姓名
         List<User> list = new ArrayList<User>();
-//        list.stream().map(user -> user.getUserName());  得到一个name流
         list.stream().map(User :: getUserName)
                 .filter(name -> name.length() > 3)
                 .forEach(System.out :: println);
@@ -243,5 +242,83 @@ public class StreamAPIDemo {
         return cat1.getName();
     }
 
+
+    @Test
+    public void testCollect() {
+        List<Person> personlist = Lists.newArrayList(new Person(1,"1"),new Person(2,"2"),
+                new Person(3,"3"),new Person(4,"4"),new Person(5,"5"));
+
+
+        ArrayList<Man> collect = personlist.stream().collect(() -> new ArrayList<Man>(), (list, person) -> {
+            list.add(new Man(person.getId(), person.getName()));
+        }, (m,n)->{});
+
+        ArrayList<Man> collect1 = personlist.stream().collect(ArrayList::new, (list, person) -> {
+            list.add(new Man(person.getId(), person.getName()));
+        }, (m,n)->{});
+
+
+        collect.forEach(System.out :: println);
+
+
+        List<Person> result = Lists.transform(personlist, person -> {
+            final Person person1 = new Person();
+            person1.setId(person.getId());
+            person1.setName(person.getName());
+            return person;
+        });
+
+    }
+
+
+    @Test
+    public void testCollect1() {
+        List<TaxiDimAppraisal> taxiDimAppraisals  = Lists.newArrayList(new TaxiDimAppraisal("aa", "aa"), new TaxiDimAppraisal("bb", "bb"));
+
+        List<AppraiseScoreDTO> appraiseScoreDTOList  = taxiDimAppraisals.stream().collect(ArrayList::new, (list, taxi) -> {
+            list.add(AppraiseScoreDTO.builder().name(taxi.getName()).score(taxi.getScore()).build());
+        }, (m, n) -> {});
+
+
+        appraiseScoreDTOList.forEach(System.out :: println);
+    }
+
 }
 
+
+
+
+
+
+
+@Data
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+class Person {
+    private Integer id;
+    private String name;
+}
+
+@Data
+@ToString
+@AllArgsConstructor
+class Man {
+    private Integer id;
+    private String name;
+}
+@Data
+@Builder
+@ToString
+class TaxiDimAppraisal {
+    private String name;
+    private String score;
+}
+
+@Data
+@Builder
+@ToString
+class AppraiseScoreDTO  {
+    private String name;
+    private String score;
+}

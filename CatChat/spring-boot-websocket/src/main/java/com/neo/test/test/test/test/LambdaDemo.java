@@ -214,4 +214,5 @@ public class LambdaDemo {
         Function<Integer,String[]> fun1 = length -> new String[length];
         Function<Integer,String[]> fun2 = String[] ::new;
     }
+
 }

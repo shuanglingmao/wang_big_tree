@@ -28,6 +28,7 @@ public class UserMapperTest {
 //        userMapper.insert(new User("aammx", "a123456", UserSexEnum.MAN));
 //        userMapper.insert(new User("bbmmx", "b123456", UserSexEnum.WOMAN));
 //        userMapper.insert(new User("ccmmx", "b123456", UserSexEnum.WOMAN));
+
     }
 
     @Test

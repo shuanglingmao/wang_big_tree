@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neo.mapper.InventoryMapper" >
+
+    <select id="getAll" resultType="com.neo.model.Inventory"  >
+       SELECT id as id, order_name as 'name' , total_Amount as totalAmount
+	   FROM t_inventory
+    </select>
+
+    <select id="getOne" parameterType="Integer" resultType="com.neo.model.Inventory" >
+      SELECT id as id, 'order_name' as 'name' , total_Amount as totalAmount
+      FROM t_inventory
+	   WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.neo.model.Inventory" >
+       INSERT INTO 
+       		t_inventory
+       		(order_name,total_Amount)
+       	VALUES
+       		(#{orderName},#{totalAmount})
+    </insert>
+    
+
+    
+    <delete id="delete" parameterType="Long" >
+       DELETE FROM
+       		 t_inventory
+       WHERE 
+       		 id =#{id}
+    </delete>
+
+    <update id="update" parameterType="com.neo.model.Inventory" >
+        update
+        t_inventory
+        set total_Amount = total_Amount - #{totalAmount}
+        WHERE
+        order_name = #{orderName}
+    </update>
+
+
+
+
+
+</mapper>

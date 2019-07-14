@@ -43,11 +43,11 @@ public class DataSourceConfig {
         return bean.getObject();
     }
 
-    @Bean(name = "transactionManager")
-    @Primary
-    public DataSourceTransactionManager testTransactionManager(@Qualifier("dataSource") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+//    @Bean(name = "transactionManager")
+//    @Primary
+//    public DataSourceTransactionManager testTransactionManager(@Qualifier("dataSource") DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
 
     @Bean(name = "sqlSessionTemplate")
     @Primary

@@ -9,7 +9,7 @@ import com.google.common.base.Strings;
  * @author shuangling.mao
  * @date 2019/6/13 18:25
  */
-public class Assert {
+public final class Assert {
     /**
      * 断言是否为真，如果为 {@code false} 抛出 {@code IllegalArgumentException} 异常<br>
      *
@@ -23,8 +23,8 @@ public class Assert {
      * @throws IllegalArgumentException if expression is {@code false}
      */
     public static void isTrue(boolean expression, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-        if (false == expression) {
-//            throw new IllegalArgumentException(StringUtils(errorMsgTemplate, params));
+        if (!expression) {
+            throw new IllegalArgumentException(errorMsgTemplate);
         }
     }
 
@@ -122,5 +122,75 @@ public class Assert {
     }
 
 
+
+    public static void noNullElements(Object[] array, String message) {
+        if (array != null) {
+            for(int i = 0; i < array.length; ++i) {
+                if (array[i] == null) {
+                    throw new IllegalArgumentException(message);
+                }
+            }
+        }
+
+    }
+
+    public static void noNullElements(Object[] array) {
+        noNullElements(array, "[Assertion failed] - this array must not contain any null elements");
+    }
+
+    public static void isInstanceOf(Class<?> clazz, Object obj) {
+        isInstanceOf(clazz, obj, "");
+    }
+
+    public static void isInstanceOf(Class<?> type, Object obj, String message) {
+        notNull(type, "Type to check against must not be null");
+        if (!type.isInstance(obj)) {
+            throw new IllegalArgumentException(message + "Object of class [" + (obj != null ? obj.getClass().getName() : "null") + "] must be an instance of " + type);
+        }
+    }
+
+    public static void isAssignable(Class<?> superType, Class<?> subType) {
+        isAssignable(superType, subType, "");
+    }
+
+    public static void isAssignable(Class<?> superType, Class<?> subType, String message) {
+        notNull(superType, "Type to check against must not be null");
+        if (subType == null || !superType.isAssignableFrom(subType)) {
+            throw new IllegalArgumentException(message + subType + " is not assignable to " + superType);
+        }
+    }
+
+    public static void state(boolean expression, String message) {
+        if (!expression) {
+            throw new IllegalStateException(message);
+        }
+    }
+
+    public static void state(boolean expression) {
+        state(expression, "[Assertion failed] - this state invariant must be true");
+    }
+
+
+    public static void isExist(Object[] objects, Object obj, String message) {
+        if (objects == null) {
+            throw new NullPointerException("校验的数组为null!");
+        } else if (obj == null) {
+            throw new NullPointerException("校验的值null!");
+        } else {
+            boolean isExist = false;
+
+            for(int i = 0; i < objects.length; ++i) {
+                Object value = objects[i];
+                if (obj.equals(value)) {
+                    isExist = true;
+                    break;
+                }
+            }
+
+            if (!isExist) {
+                throw new IllegalArgumentException(message);
+            }
+        }
+    }
 
 }

@@ -43,6 +43,22 @@ public final class CommonThreadPool {
         return future;
 
     }
+
+    /**
+     * 执行某个任务多少次
+     * 用于并发测试
+     * @param r
+     * @param num
+     */
+    public static void execute(Runnable r ,int num) {
+        for (int i = 0; i < num; i++) {
+            execute.submit(r);
+        }
+        while (((ThreadPoolExecutorExtend) execute).getSubmittedTasksCount().get() != 0) {
+            Thread.yield();
+        }
+    }
+
     private static ExecutorService init() {
         Properties ps = getThreadPoolConfig();
         if (ps == null) {
