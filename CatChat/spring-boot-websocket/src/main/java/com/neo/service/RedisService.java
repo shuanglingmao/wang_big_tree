@@ -3,7 +3,11 @@ package com.neo.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -22,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Service("redisService")
 public class RedisService {
     private Logger logger = LoggerFactory.getLogger(RedisService.class);
+    private static final Long RELEASE_SUCCESS = 1L;
     @Autowired
     private RedisTemplate redisTemplate;
 
@@ -215,5 +220,21 @@ public class RedisService {
     public <K,V> Set<V> rangeByScore(K key,double scoure,double scoure1){
         ZSetOperations<K, V> zset = redisTemplate.opsForZSet();
         return zset.rangeByScore(key, scoure, scoure1);
+    }
+
+
+    public <K,V> boolean execute(K key, V vaule,String script) {
+        final Object result = redisTemplate.execute(new RedisCallback() {
+            @Nullable
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                //TODO
+                return null;
+            }
+        });
+        if (RELEASE_SUCCESS.equals(result)) {
+            return true;
+        }
+        return false;
     }
 }

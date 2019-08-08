@@ -1,7 +1,10 @@
 package com.neo.test.test.test.test;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import com.neo.model.User;
+import com.neo.rpc.threadpool.CommonThreadPool;
+import com.neo.rpc.threadpool.IAsynchronousHandler;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +12,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -213,6 +218,118 @@ public class LambdaDemo {
 
         Function<Integer,String[]> fun1 = length -> new String[length];
         Function<Integer,String[]> fun2 = String[] ::new;
+    }
+
+    @Test
+    public void test11() {
+        long start = System.currentTimeMillis();
+        int num = 0;
+        for (int i = 1; i <= 10; i++) {
+            num += getXXX();
+        }
+        System.out.println(num);                    //55
+        long end = System.currentTimeMillis();
+        System.out.println("执行时间:"+(end-start));  //10012
+    }
+
+    @Test
+    public void test12() {
+        long start = System.currentTimeMillis();
+
+        List<Future<Object>> list = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            list.add(CommonThreadPool.execute(new IAsynchronousHandler() {
+                @Override
+                public Object call() throws Exception {
+                    return getXXX();
+                }
+                @Override
+                public void executeAfter(Throwable t) {
+                }
+                @Override
+                public void executeBefore(Thread t) {
+
+                }
+            }));
+        }
+
+        Integer num = 0;
+        for (Future<Object> future : list) {
+            final Integer re;
+            try {
+                re = (Integer) future.get();
+                num += re;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        System.out.println(num);                    //55
+        long end = System.currentTimeMillis();
+        System.out.println("执行时间:"+(end-start));  //2009
+    }
+    @Test
+    public void test13() {
+
+    }
+
+    @Test
+    public void test14() {
+        long start = System.currentTimeMillis();
+
+        Callable<Integer> callable = () -> getXXX();
+
+        FutureTask<Integer> futureTask = new FutureTask(callable);
+        new Thread(futureTask).start();
+        FutureTask<Integer> futureTask1 = new FutureTask(callable);
+        new Thread(futureTask1).start();
+        FutureTask<Integer> futureTask2 = new FutureTask(callable);
+        new Thread(futureTask2).start();
+        FutureTask<Integer> futureTask3 = new FutureTask(callable);
+        new Thread(futureTask3).start();
+        FutureTask<Integer> futureTask4 = new FutureTask(callable);
+        new Thread(futureTask4).start();
+        FutureTask<Integer> futureTask5 = new FutureTask(callable);
+        new Thread(futureTask5).start();
+        FutureTask<Integer> futureTask6 = new FutureTask(callable);
+        new Thread(futureTask6).start();
+        FutureTask<Integer> futureTask7 = new FutureTask(callable);
+        new Thread(futureTask7).start();
+        FutureTask<Integer> futureTask8 = new FutureTask(callable);
+        new Thread(futureTask8).start();
+        FutureTask<Integer> futureTask9 = new FutureTask(callable);
+        new Thread(futureTask9).start();
+
+        int re = 0;
+        try {
+            re = re + futureTask.get()
+                    + futureTask1.get()
+                    + futureTask2.get()
+                    + futureTask3.get()
+                    + futureTask4.get()
+                    + futureTask5.get()
+                    + futureTask6.get()
+                    + futureTask7.get()
+                    + futureTask8.get()
+                    + futureTask9.get();
+            System.out.println("执行结果re:" + re);   //55
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println("执行时间:"+(end-start));  //1003
+    }
+
+    AtomicInteger atomicInteger = new AtomicInteger();
+    private int getXXX() {
+        try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
+        return atomicInteger.incrementAndGet();
     }
 
 }

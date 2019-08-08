@@ -269,6 +269,15 @@ public class StreamAPIDemo {
         });
 
     }
+    @Test
+    public void test10() {
+        List<Person> personlist = Lists.newArrayList(new Person(1,"1"),new Person(2,"2"),
+                new Person(3,"3"),new Person(4,"4"),new Person(5,"5"),
+                new Person(5,"5"),new Person(5,"5"),new Person(1,"3"),new Person(1,"9"),
+                new Person(1,"asdasd"),new Person(1,"哈哈哈"));
+        Map<Integer, List<Person>> collect = personlist.stream().collect(Collectors.groupingBy(Person::getId));
+        System.out.println(collect.get(1).toString());
+    }
 
 
     @Test

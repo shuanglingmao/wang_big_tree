@@ -93,7 +93,6 @@ public final class CommonThreadPool {
                 taskqueue,new TaskThreadFactory(threadName) , new ThreadPlloRejectedExecutionHandler(vo.isDiscard()));
 
         executeNew.setThreadPollName(threadName);
-
         return executeNew;
     }
 

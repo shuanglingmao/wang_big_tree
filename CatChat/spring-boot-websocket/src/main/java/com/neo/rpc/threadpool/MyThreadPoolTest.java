@@ -1,7 +1,10 @@
 package com.neo.rpc.threadpool;
 
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
 
+import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -31,10 +34,11 @@ public class MyThreadPoolTest {
             @Override
             public Object call() throws Exception {
                 int sum = 0;
-                for (int i = 0; i < 10; i++) {
-                    try { TimeUnit.SECONDS.sleep(1); } catch (InterruptedException e) { e.printStackTrace(); }
-                    sum ++;
-                }
+//                for (int i = 0; i < 10; i++) {
+//                    try { TimeUnit.SECONDS.sleep(1/5); } catch (InterruptedException e) { e.printStackTrace(); }
+//                    sum ++;
+//                }
+                int i = 0/5;
                 return sum;
             }
         });
@@ -138,5 +142,35 @@ public class MyThreadPoolTest {
             stringBuilder.append("v_").append(faNumberInteger).append("_").append(subNumberInteger);
         }
         return stringBuilder.toString();
+    }
+
+
+    @Test
+    public void test5() {
+        for (int i = 0; i < 3; i++) {
+            final int tepm = i;
+            CommonThreadPool.execute(new IAsynchronousHandler() {
+                @Override
+                public void executeAfter(Throwable t) {
+                    System.out.println(t);
+                }
+
+                @Override
+                public void executeBefore(Thread t) {
+
+                }
+
+                @Override
+                public Object call() throws Exception {
+                    if (tepm == 2) {
+                        throw new RuntimeException();
+                    }
+                    System.out.println(tepm);
+                    return null;
+                }
+            });
+        }
+
+        try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { e.printStackTrace(); }
     }
 }

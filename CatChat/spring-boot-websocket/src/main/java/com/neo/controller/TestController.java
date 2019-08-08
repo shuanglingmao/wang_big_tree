@@ -3,10 +3,13 @@ package com.neo.controller;
 import com.neo.rpc.threadpool.CommonThreadPool;
 import com.neo.rpc.threadpool.IAsynchronousHandler;
 import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @Author 毛双领 <shuangling.mao>
  */
 @RestController
-public class TestController {
+public class TestController implements InitializingBean{
 
     @RequestMapping()
     public String testThreadLocal(String name) throws ExecutionException, InterruptedException {
@@ -44,5 +47,11 @@ public class TestController {
             }
         });
         return (String) execute.get();
+    }
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("TestController初始化完毕··················");
     }
 }
