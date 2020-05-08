@@ -1,47 +1,20 @@
-package com.msl.util;
+package com.msl.guava.collection;
 
 import com.google.common.collect.MapDifference;
-import com.msl.guava.collection.Maps;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * description:
- *
- * @author shuangling.mao
- * @date 2019/3/11 11:11
+ * 一个Map的工具类
+ * @author msl on 2020/5/8.
  */
-public class MapUtils {
-    /**
-     * 把list转换为HashMap
-     * @param list
-     * @param key
-     * @param <K>
-     * @param <V>
-     * @return
-     */
-    public static <K,V> Map<K,V> transListToMap(List<V> list, Key<K,V> key) {
-        if (list == null || list.isEmpty()) {
-            return Collections.emptyMap();
-        }
-        Map<K,V> map = new HashMap<K,V>(list.size());
-        for (V v : list) {
-            map.put(key.getKey(v), v);
-        }
-        return map;
-    }
-
-    public interface Key<K,V> {
-        K getKey(V v);
-    }
-
+public final class Maps {
 
     public static <K,V> Map<K,V> filterKeys(Map<K,V> unFilteredMap, Predicate<K> keyPredicate) {
         Map<K, V> filteredMap = unFilteredMap.entrySet()
@@ -69,10 +42,10 @@ public class MapUtils {
     }
 
     public static <K,V,E> Map<K,V> collectionToMap(Collection<E> collection, Function<E,K> keyFunction, Function<E,V> valueFunction) {
-        if (collection == null || collection.isEmpty()) {
-            return Collections.EMPTY_MAP;
-        }
-        return collection.stream().collect(Collectors.toMap(keyFunction,valueFunction));
+      if (collection == null || collection.isEmpty()) {
+          return Collections.EMPTY_MAP;
+      }
+      return collection.stream().collect(Collectors.toMap(keyFunction,valueFunction));
     };
 
     private <K,V> Predicate<Map.Entry<K,V>> get1112(Predicate<K> keyPredicate) {
