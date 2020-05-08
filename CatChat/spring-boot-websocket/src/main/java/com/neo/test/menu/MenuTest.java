@@ -161,7 +161,11 @@ public class MenuTest {
 
             //为每个二级菜单添加他们的三级菜单
             secondList.forEach(secondMenu -> secondMenu.setList(
-                    list.stream().filter(menu -> menu.getParentId().equals(secondMenu.getId())).collect(Collectors.toList())
+                    list.stream()
+                            .filter(menu -> menu.getParentId().equals(secondMenu.getId()))
+                            //为每个三级菜单设置他们的四级菜单
+                            .peek(thirdMenu -> list.stream().forEach(menu -> menu.getParentId().equals(thirdMenu.getId())))
+                            .collect(Collectors.toList())
             ));
 
             firstMenu.setList(secondList);
@@ -176,7 +180,36 @@ public class MenuTest {
 
     @Test
     public void test3() {
+        init();
+        Map<Integer, List<Menu>> maps = list.stream().collect(Collectors.groupingBy(Menu::getParentId));
+        List<Menu> menus = subType(0, maps, 0);
+        for (Menu menu : menus) {
+            System.out.println(menu.getName());
+            System.out.println(JSONObject.toJSONString(menu.getList()));
+        }
 
+    }
+
+    List<Menu> result = new ArrayList<Menu>();
+    public List<Menu> subType(Integer parentId, Map<Integer,List<Menu>> maps, int level) {
+//        List<Menu> result = new ArrayList<Menu>();
+        List<Menu> trList = maps.get(parentId);
+        if (trList == null) {
+            return result;
+        }
+        for(Iterator<Menu> iterator =trList.iterator();iterator.hasNext();){
+            Menu typeTemp = iterator.next();
+            typeTemp.setId(level);
+            typeTemp.setName(typeTemp.getName());
+            result.add(typeTemp);
+            typeTemp.setList(subType(typeTemp.getId(),maps,level+1));
+        }
+
+        if(result.isEmpty()){
+            return null;
+        }else{
+            return result;
+        }
     }
 
 

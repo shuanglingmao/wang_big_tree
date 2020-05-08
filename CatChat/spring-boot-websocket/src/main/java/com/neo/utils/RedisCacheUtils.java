@@ -43,18 +43,18 @@ public final class RedisCacheUtils{
      * @param cacheData 缓存数据
      * @return the t
      */
-    public <T> T get(String key, AbstractCacheData<T> cacheData) {
-        T result = get(key);
-        if (result != null) {
-            return result;
-        } else {
-            result = cacheData.getDataFromDB();
-            if (result != null) {
-                redisService.set(key,result);
-            }
-            return result;
-        }
-    }
+//    public <T> T get(String key, AbstractCacheData<T> cacheData) {
+//        T result = get(key);
+//        if (result != null) {
+//            return result;
+//        } else {
+//            result = cacheData.getDataFromDB();
+//            if (result != null) {
+//                redisService.set(key,result);
+//            }
+//            return result;
+//        }
+//    }
 
     /**
      * 获取数据,如果没有，调用钩子后存入valueCommands缓存
@@ -77,4 +77,8 @@ public final class RedisCacheUtils{
         }
     }
 
+    public void test1(String[] args) {
+        String aaa = "aaa";
+        this.get(aaa, () -> aaa);
+    }
 }

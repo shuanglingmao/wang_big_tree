@@ -12,7 +12,7 @@ public class Observable {
     List<Observer> funs = new ArrayList<Observer>();
 
     /**
-     * 有人关注呆姐   则粉丝列表将其添加进去
+     * 有人关注UZI   则粉丝列表将其添加进去
      * @param observer
      */
     public void addObserver(Observer observer) {
@@ -21,7 +21,7 @@ public class Observable {
 
 
     /**
-     * 呆姐发微博了！
+     * UZI发微博了！
      */
     public void updateWeibo() {
         System.out.println("我是王屁呆，我发新动态了！");
@@ -29,7 +29,7 @@ public class Observable {
     }
 
     /**
-     *  通知粉丝们 呆姐发微博了
+     *  通知粉丝们 UZI发微博了
      */
     public void notifyFuns() {
         for (Observer funs : funs) {

@@ -19,7 +19,7 @@ public class CountdownLatch {
     /**优惠券*/
     private volatile int discount = 20;
 
-    @Test
+//    @Test
     public void testInvoke ()  throws Exception{
         for (int i = 1; i <= USR_NUM; i++) {
             new Thread(new Request("线程"+i)).start();

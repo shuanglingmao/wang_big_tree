@@ -273,7 +273,7 @@ public class LambdaDemo {
     }
     @Test
     public void test13() {
-
+        System.out.println(1);
     }
 
     @Test

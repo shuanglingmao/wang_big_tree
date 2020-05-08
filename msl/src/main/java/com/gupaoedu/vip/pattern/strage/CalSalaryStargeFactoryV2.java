@@ -1,11 +1,16 @@
 package com.gupaoedu.vip.pattern.strage;
 
+import com.gupaoedu.vip.spring.mini1.spring.annotation.Autowired;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CalSalaryStargeFactoryV2 {
     /**

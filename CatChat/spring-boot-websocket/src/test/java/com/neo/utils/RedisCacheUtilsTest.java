@@ -31,7 +31,8 @@ public class RedisCacheUtilsTest {
     }
 
     private City get(Integer cityId) {
-        return redisCacheUtils.get(RedisConstant.CITY_KEY+cityId, () -> cityMapper.getCityById(cityId));
+//        return redisCacheUtils.get(RedisConstant.CITY_KEY+cityId, () -> cityMapper.getCityById(cityId));
+        return null;
     }
 
 }
