@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
@@ -15,6 +18,9 @@ import java.util.Arrays;
  * @author shuangling.mao
  * @date 2019/3/15 9:48
  */
+@EnableAsync
+@RestController
+@EnableScheduling
 @SpringBootApplication
 @MapperScan({"com.msl.mapper"})
 public class Application {
