@@ -96,7 +96,7 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
-      <version>4.5.3</version>
+      <version>4.5.13</version>
     </dependency>
     <!--BeanUtils提供了一个易于使用但灵活的反射和内省包装器。-->
     <dependency>
