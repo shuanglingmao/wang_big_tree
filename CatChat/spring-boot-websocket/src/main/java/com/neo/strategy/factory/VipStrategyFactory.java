@@ -35,11 +35,11 @@ public class VipStrategyFactory implements ApplicationContextAware {
      * @Description:
      * @author shuangling.mao
      * @date 2019/6/10 18:00
-     * @param name
+     * @param cardName
      * @return com.neo.strategy.VipStrategy
      */
     public VipStrategy getVipStrategy(String cardName) {
-        if (vipGroup.contains(name)) {
+        if (vipGroup.contains(cardName)) {
             return (VipStrategy) applicationContext.getBean("fatherStrategy");
         }
         return (VipStrategy) applicationContext.getBean("loserStrategy");

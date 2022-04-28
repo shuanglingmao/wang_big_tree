@@ -17,7 +17,7 @@ public class LazyThree {
     }
 
     //内部类在 getInstance 方法调用之前初始化          巧妙的避免了线程安全问题
-    public static final LazyThree getInstance() {
+    public static LazyThree getInstance() {
         return LazyHolder.LAZY;
     }
 

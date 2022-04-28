@@ -1,4 +1,4 @@
-package com.neo.test;
+package jdk;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
